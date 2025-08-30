@@ -16,7 +16,7 @@ function App() {
   const [show, setShow] = useState <boolean>(false)
   const [shouldReload, setShouldReload] = useState(false)
   const [macroList, setMacroList] = useState<Doc[]>([])
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const [macroInfo, setMacroInfo] = useState <Doc[]>([])
   const [openIndex, setOpenIndex] = useState<string | null>(null)
 

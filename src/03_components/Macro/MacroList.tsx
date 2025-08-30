@@ -15,9 +15,10 @@ interface MacroListProps {
   oldPage: number
   setOpenIndex: React.Dispatch<React.SetStateAction<string | null>>
   openIndex: string | null
+  setIsSideBarOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname, setOldPage, setMacroList, macroList, oldPage, setOpenIndex, openIndex }: MacroListProps) {
+function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname, setOldPage, setMacroList, macroList, oldPage, setOpenIndex, openIndex, setIsSideBarOpen }: MacroListProps) {
   
 
   const getMacrosList = async () => {
@@ -43,6 +44,7 @@ function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname,
       setClick(prev => !prev)
       if(page != 2 || openIndex !== index) setPage(2)
     }
+    setIsSideBarOpen(false)
   }
 
   useEffect(() => {
@@ -78,6 +80,7 @@ function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname,
                 onMacroClick(macro.macroName)
                 setMacroname(macro.macroName)
                 setOldPage(2)
+                setIsSideBarOpen(false)
               }}
               >
                 {macro.macroName} {(openIndex === macro.macroName && page > 2 && oldPage == 2) 

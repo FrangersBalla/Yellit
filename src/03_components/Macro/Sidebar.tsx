@@ -79,6 +79,7 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
 
   const handleCreateMacro = ()=>{
     setPage(1)
+    setIsOpen(false)
   }
 
   return (
@@ -123,6 +124,7 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
                     oldPage={oldPage}
                     openIndex={openIndex}
                     setOpenIndex={setOpenIndex}
+                    setIsSideBarOpen={setIsOpen}
                   />
                   </div>
                   <div className="absolute bottom-15 left-0 w-full p-6 bg-black">
