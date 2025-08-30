@@ -102,7 +102,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
                 </div>
                 <div className='flex gap-2 flex-wrap font-thin text-sm'>
                     <div className='bg-gray-700/25 hover:bg-white/25 px-3 py-1 rounded-2xl'><button onClick={()=>{reactionHandler(post)}} className="flex flex-center"><img src="/icons/like.svg" alt= '' className={`right-0 w-5 ${liked(post)? 'invert': ''} h-5 mr-3`}/> {post.likes} </button></div>
-                    <div className='bg-gray-700/25 hover:bg-white/25 px-3 py-1 rounded-2xl'><button onClick={()=>{setPost(post);setPage(4)}} className="text-right whitespace-nowrap">Reviews: {post.reviews} </button></div>
+                    <div className='bg-gray-700/25 hover:bg-white/25 px-3 py-1 rounded-2xl'><button onClick={()=>{setPost(post);setPage(4)}} className="text-right whitespace-nowrap">Comments: {post.reviews} </button></div>
                     <h5 className=""></h5>
                 </div>
             </div>

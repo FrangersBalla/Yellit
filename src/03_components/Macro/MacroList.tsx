@@ -16,10 +16,9 @@ interface MacroListProps {
   setOpenIndex: React.Dispatch<React.SetStateAction<string | null>>
   openIndex: string | null
   setIsSideBarOpen: React.Dispatch<React.SetStateAction<boolean>>
-  setIsSideBarClicked: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname, setOldPage, setMacroList, macroList, oldPage, setOpenIndex, openIndex, setIsSideBarOpen, setIsSideBarClicked }: MacroListProps) {
+function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname, setOldPage, setMacroList, macroList, oldPage, setOpenIndex, openIndex, setIsSideBarOpen }: MacroListProps) {
   
 
   const getMacrosList = async () => {
@@ -44,7 +43,7 @@ function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname,
       setOpen(true)
       setClick(prev => !prev)
       if(page != 2 || openIndex !== index) setPage(2)
-      setIsSideBarClicked(false)
+      //setIsSideBarClicked(false)
     }
     
   }

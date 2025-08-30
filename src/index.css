@@ -21,3 +21,7 @@ button {
   border: 1px solid transparent;
   background-clip: content-box;
 }
+
+html, body {
+  height: 100%;
+}
