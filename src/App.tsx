@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     if (macroInfo.length > 0) {
-      setShow(true);
+      setShow(true)
     }
   }, [macroInfo])
 

@@ -16,9 +16,10 @@ interface MacroListProps {
   setOpenIndex: React.Dispatch<React.SetStateAction<string | null>>
   openIndex: string | null
   setIsSideBarOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsSideBarClicked: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname, setOldPage, setMacroList, macroList, oldPage, setOpenIndex, openIndex, setIsSideBarOpen }: MacroListProps) {
+function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname, setOldPage, setMacroList, macroList, oldPage, setOpenIndex, openIndex, setIsSideBarOpen, setIsSideBarClicked }: MacroListProps) {
   
 
   const getMacrosList = async () => {
@@ -43,8 +44,9 @@ function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname,
       setOpen(true)
       setClick(prev => !prev)
       if(page != 2 || openIndex !== index) setPage(2)
+      setIsSideBarClicked(false)
     }
-    setIsSideBarOpen(false)
+    
   }
 
   useEffect(() => {
@@ -80,7 +82,6 @@ function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname,
                 onMacroClick(macro.macroName)
                 setMacroname(macro.macroName)
                 setOldPage(2)
-                setIsSideBarOpen(false)
               }}
               >
                 {macro.macroName} {(openIndex === macro.macroName && page > 2 && oldPage == 2) 
@@ -101,10 +102,10 @@ function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname,
                   : 'opacity-0 -translate-y-10 pointer-events-none overflow-hidden h-0'}`}
                 >
               <div className="px-8 py-2 mt-2 p-3 bg-transparent">
-                <button onClick={()=>{setPage(5); setOpen(false)}}><img src="/icons/info.svg" alt= '' className="right-0 w-10 h-10 invert opacity-25"/></button>
+                <button onClick={()=>{setPage(5); setOpen(false); setIsSideBarOpen(false)}}><img src="/icons/info.svg" alt= '' className="right-0 w-10 h-10 invert opacity-25"/></button>
               </div>
               <div className="px-8 py-2 mt-2 p-3 bg-transparent">
-                <button onClick={()=>{setPage(3); setOpen(false)}}><img src="/icons/add.svg" alt= '' className="right-0 w-6 h-6 invert opacity-30"/></button>
+                <button onClick={()=>{setPage(3); setOpen(false); setIsSideBarOpen(false)}}><img src="/icons/add.svg" alt= '' className="right-0 w-6 h-6 invert opacity-30"/></button>
               </div>
             </div>
           </li>

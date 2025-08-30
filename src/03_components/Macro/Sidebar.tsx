@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MacroList from '../Macro/MacroList'
 import AuthControl from '../User/LogIn'
 import UserCard from '../User/UserCard'
@@ -33,6 +33,7 @@ interface SidebarProps{
 function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, setMacroname, setUser, user, setOldPage, shouldReload, setShouldReload, setIsOpen, isOpen, setMacroList, macroList, oldPage, openIndex, setOpenIndex}: SidebarProps) {
 
   const boxRef = useRef<HTMLDivElement | null>(null)
+  const [isNotClicked, setIsNotClicked] = useState<boolean>(true)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -70,11 +71,12 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
 
   const handleLoginChange = (loggedIn: boolean) => {
     setLoggato(loggedIn)
-    if (loggedIn) setShouldReload(true) // trigger macro reload
+    if (loggedIn) setShouldReload(true)
   }
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen)
+    setIsNotClicked(true)
   }
 
   const handleCreateMacro = ()=>{
@@ -86,10 +88,10 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
     <div ref={boxRef} className="contents">
       <button
         onClick={toggleSidebar}
-        className={`lg:hidden fixed top-12 left-1 z-40 px-3 py-1 rounded-full text-white shadow-md
-                    bg-gradient-to-b from-slate-950 via-gray-950 to-slate-950 opacity-75 hover:bg-black hover:opacity-100`}
+        className={`lg:hidden fixed top-12 left-1 z-50 px-5 py-1 rounded-full text-white shadow-md
+                    bg-gradient-to-b from-black via-stone-950 to-black opacity-50 hover:bg-black hover:opacity-75`}
       >
-        •
+        <img src="/icons/menu.svg" alt= '' className="right-0 w-6 h-6 invert opacity-50"/>
       </button>
       <div className="text-white max-l:hidden lg:w-60 lg:h-screen"></div>
       {!(user && user!.isNew) && (
@@ -99,13 +101,14 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
               bg-black min-lg:opacity-50 hover:opacity-100 text-white
               p-4 rounded-tr-3xl fixed
               max-sm:w-full max-md:w-4/7 max-lg:w-3/7 mt-18 h-full overflow-x-hidden 
-              transform transition-all duration-700 ease-out z-50
-              ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+              transform transition-all duration-700 ease-out z-40
+              ${isOpen && isNotClicked? 'translate-x-0' : '-translate-x-full'}
+              ${isNotClicked? '' : 'delay-[1s,500ms]'}
               lg:translate-x-0 lg:block lg:w-60 lg:hover:w-5/17
             `}
           >
           <nav className="h-full flex flex-col">
-                <AuthControl loggato={loggato} onLoginChange={handleLoginChange} setUser={setUser}/>
+                <AuthControl loggato={loggato} onLoginChange={handleLoginChange} setUser={setUser} setIsOpen={setIsOpen}/>
                 {(loggato) && (
                   <>
                   {(page == 0 || (oldPage == 0 && page != 2)) && (<div><button onClick={handleCreateMacro} className="w-full bg-amber-200 py-2 mb-4 rounded-xl text-black hover:bg-amber-200 transition">
@@ -125,6 +128,7 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
                     openIndex={openIndex}
                     setOpenIndex={setOpenIndex}
                     setIsSideBarOpen={setIsOpen}
+                    setIsSideBarClicked={setIsNotClicked}
                   />
                   </div>
                   <div className="absolute bottom-15 left-0 w-full p-6 bg-black">

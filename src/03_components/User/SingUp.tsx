@@ -6,7 +6,7 @@ type SingUpProps = {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function SingUp({ setSignUp}: SingUpProps) {
+export function SingUp({setSignUp}: SingUpProps) {
   const today = new Date().toISOString().split('T')[0]
   const [userNickName, setUserNickName] = useState("")
   const [birthDate, setBirthDate] = useState("")
@@ -22,6 +22,7 @@ export function SingUp({ setSignUp}: SingUpProps) {
     }
     await SingUpOndb(userNickName, birthDate, country, sex)
     setSignUp(false)
+    window.location.reload()
   }
 
   const handleLogOut = async ()=>{
