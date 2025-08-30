@@ -96,10 +96,11 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
         <>
           <aside
             className = {`
+              will-change: transform
               bg-black min-lg:opacity-50 hover:opacity-100 text-white
               p-4 rounded-tr-3xl fixed
               max-sm:w-full max-md:w-4/7 max-lg:w-3/7 mt-18 h-full overflow-x-hidden 
-              transform transition-all duration-700 ease-out z-40
+              transform transition-all duration-700 ease-out z-40 delay-0
               ${isOpen? 'translate-x-0' : '-translate-x-full'}
               lg:translate-x-0 lg:block lg:w-60 lg:hover:w-5/17
             `}
