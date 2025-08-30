@@ -16,7 +16,7 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
     const [likes, setLikes] = useState<number>(post.likes)
     const [commentsList, setCommentsList] = useState<Doc[]>([])
     const [comment, setComment] = useState('')
-    const [submit, setSubmit] = useState(false)
+    const [submit, setSubmit] = useState(true)
     const [isProcessing, setIsProcessing] = useState(false)
 
     const reactionHandler = async ()=>{
@@ -37,19 +37,20 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
     }
 
     const commentSubmit = async () => {
+        if (!comment.trim()) return
         await AddComment(post, comment, userName)
-        setComment('')
         setSubmit(true)
     }
 
     useEffect(() =>{
-        if(page == 4) {
-                const fetchComments = async () => {
+        if(page == 4 && submit) {
+            const fetchComments = async () => {
                 const comments = await ShowComments(post)
                 setCommentsList([...comments])
             }
             fetchComments()
-            setSubmit(prev => !prev)
+            setComment('')
+            setSubmit(false)
         }
     },[page, submit])
 
