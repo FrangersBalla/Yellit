@@ -27,7 +27,7 @@ export default function Upbar({setPage, setOldPage, setMacroInfo, setShowMacro}:
   }
 
   return (
-    <header className="min-w-screen fixed p-4 rounded-b-xl z-50
+    <header className="min-w-screen fixed p-4 rounded-b-xl z-50 
                        bg-black">
       <div className="h-8 mx-auto flex items-center gap-4">
         <button onClick={()=>{setPage(0); setOldPage(0)}} className="ml-5 cursor-pointer"><h1 className="ml-5 font-sans text-3xl text-white font-black tracking-tighter whitespace-nowrap">

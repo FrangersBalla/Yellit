@@ -16,7 +16,7 @@ export default function UserCard({CurrentUser, onLoginChange, setPage, setOldPag
     await LogOut()
   }
   return (
-    <div className="bg-black rounded-xl flex items-center relative">
+    <div className="bg-black z-50 rounded-xl flex items-center relative">
       <div>
         <h2 className="text-lg font-medium text-amber-100/80">{CurrentUser.nickName}</h2>
         <p className="text-sm text-gray-500">{CurrentUser.email}</p>

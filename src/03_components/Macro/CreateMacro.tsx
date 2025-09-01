@@ -71,9 +71,9 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
   }
 
   return (
-    <div className="flex items-center justify-center h-full mt-30 lg:mr-40">
+    <div className="flex items-center justify-center h-full mt-5 md:mt-20 lg:mr-40">
       <form className="bg-black opacity-100 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
-        <div className="relative flex items-center justify-center mb-6 h-10">
+        <div className="relative flex items-center justify-center mb-5 h-10">
           <button
             type="button"
             onClick={handleClose}

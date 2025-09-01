@@ -35,6 +35,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
   const [visible, setVisible] = useState(false)
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 640)
   const [signUp, setSignUp] = useState(true)
+  const [scroll, setScroll] = useState(true)
 
   useEffect(() => {
     setVisible(false)
@@ -65,23 +66,23 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
 
     useEffect(() => {
       if (isOpen && isSmallScreen) {
-          document.body.style.overflow = 'hidden'
+          setScroll(false)
       } else {
-          document.body.style.overflow = 'auto'
+          setScroll(true)
       }
       return () => {
-          document.body.style.overflow = 'auto'
+          setScroll(true)
       }
     },[isOpen, isSmallScreen])
 
   return (
     <div
-      className={`transition-opacity duration-[1s,15s] ${visible ? 'opacity-100' : 'opacity-0'}`}
+      className={`transition-opacity duration-[1s,15s] ${scroll} ${visible ? 'opacity-100' : 'opacity-0'}`}
     >
       {(() => {
-        if(page!=visiblePage || !loggato) return <div className="flex items-center justify-center h-full mt-30 lg:mr-40"></div>
+        if(page!=visiblePage || !loggato ) return <div className="flex items-center justify-center h-full mt-30 lg:mr-40"></div>
         if(user!.isNew && signUp) return <div><SingUp setShouldReload={setShouldReload} setSignUp={setSignUp}/></div>
-        switch (visiblePage) {
+        if (scroll) switch (visiblePage) {
           case 1:
             return <div><CreateMacro setOpenIndex={setOpenIndex} setMacroname={setMacroname} setSucc={setSucc} setPage={setPage} user={user} setOldPage={setOldPage}/></div>
           case 2:

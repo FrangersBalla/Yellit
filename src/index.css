@@ -1,13 +1,18 @@
 @import "tailwindcss";
-body {
-  background-color: black;
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-image: url('/images/bg0.jpg');
-  /* puoi aggiungere altre proprietà come: */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  z-index: -1;
+  will-change: transform;
+  background-color: black;
+  overflow: auto;
 }
+
 
 button {
   cursor: pointer;

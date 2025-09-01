@@ -32,10 +32,9 @@ function App() {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col">
-        <Upbar setPage={setPage} setOldPage={setOldPage} setShowMacro={setShow} setMacroInfo={setMacroInfo}></Upbar>
-        <div className="flex-1 lg:flex-row h-screen flex flex-col
-                        min-h-screen">
+      <div className="h-screen flex flex-col overflow-x-hidden">
+        <header><Upbar setPage={setPage} setOldPage={setOldPage} setShowMacro={setShow} setMacroInfo={setMacroInfo}></Upbar></header>
+        <div className="flex-1 lg:flex-row h-screen flex flex-col min-h-screen">
           <div className="lg:hidden min-w-screen mt-10 bg-transparent relative h-8 "></div>
           <Sidebar
             setPage={setPage} 
@@ -58,6 +57,7 @@ function App() {
             openIndex={openIndex}
             setOpenIndex={setOpenIndex}/>
           <main className="flex-1 p-4 flex-1 p-4 h-full">
+            <div className="h-8"></div>
             <RenderComponent
               setPage={setPage}
               page={page}

@@ -15,7 +15,6 @@ interface Home {
 function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: Home){
     const [feed, setFeed] = useState <Array<Doc>>([])
     const [isProcessing, setIsProcessing] = useState(false)
-
     const liked = (post: Doc): boolean => {
         const inList = post.reactions.find((u: string)=>userName === u)
         return ((inList && post.likes == post.reactions.length) || post.likes == post.reactions.length +1)
@@ -84,7 +83,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
     <ul className="space-y-2 text-white h-[100vh]">
         {feed.map((post) => (
         <li key={post.title}>
-            <div className="h-auto m-auto bg-black flex flex-col justify-between select-text
+            <div className="h-auto m-auto bg-black flex flex-col justify-between select-text 
                 opacity-75 shadow-md rounded-xl w-14/15 mb-10 lg:m-20 lg:w-11/15 p-6">
                 <div>
                     <div className="mb-2 flex justify-between items-center">
