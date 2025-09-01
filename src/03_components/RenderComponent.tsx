@@ -33,6 +33,7 @@ interface RenderComponentProps {
 function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato, macroName, user, setPost, post, setShowMacro, setMacroInfo, setShouldReload, setMacroname, setOpenIndex, isOpen }: RenderComponentProps) {
   const [visiblePage, setVisiblePage] = useState(page)
   const [visible, setVisible] = useState(false)
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 640)
   const [signUp, setSignUp] = useState(true)
 
   useEffect(() => {
@@ -52,6 +53,27 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
     setSignUp(true)
   },[])
 
+  useEffect(() => {
+    const handleResize = () => {
+        setIsSmallScreen(window.innerWidth < 640)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => {
+        window.removeEventListener('resize', handleResize)
+    }
+  },[])
+
+    useEffect(() => {
+      if (isOpen && isSmallScreen) {
+          document.body.style.overflow = 'hidden'
+      } else {
+          document.body.style.overflow = 'auto'
+      }
+      return () => {
+          document.body.style.overflow = 'auto'
+      }
+    },[isOpen, isSmallScreen])
+
   return (
     <div
       className={`transition-opacity duration-[1s,15s] ${visible ? 'opacity-100' : 'opacity-0'}`}
@@ -63,7 +85,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
           case 1:
             return <div><CreateMacro setOpenIndex={setOpenIndex} setMacroname={setMacroname} setSucc={setSucc} setPage={setPage} user={user} setOldPage={setOldPage}/></div>
           case 2:
-            return <MacroHome isOpen={isOpen} macroName={macroName} page={page} setPage={setPage} setPost={setPost} visible={visible} userName={user!.nickName}/>
+            return <MacroHome macroName={macroName} page={page} setPage={setPage} setPost={setPost} visible={visible} userName={user!.nickName}/>
           case 3:
             return <div><CreatePost setSucc={setSucc} setPage={setPage} macroName={macroName} name={user!.nickName} /></div>
           case 4:
@@ -73,7 +95,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
           case 6:
             return <></>
             default:
-            return <Home isOpen={isOpen} page={page} setPage={setPage} setPost={setPost} setShowMacro={setShowMacro} setMacroInfo={setMacroInfo} userName={user!.nickName}/>
+            return <Home page={page} setPage={setPage} setPost={setPost} setShowMacro={setShowMacro} setMacroInfo={setMacroInfo} userName={user!.nickName}/>
         }
       })()}
     </div>

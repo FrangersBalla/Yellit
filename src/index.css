@@ -1,6 +1,12 @@
 @import "tailwindcss";
 body {
   background-color: black;
+  background-image: url('/images/bg0.jpg');
+  /* puoi aggiungere altre proprietà come: */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 button {

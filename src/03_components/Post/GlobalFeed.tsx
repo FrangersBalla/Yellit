@@ -10,13 +10,11 @@ interface Home {
   setShowMacro: React.Dispatch<React.SetStateAction<boolean>>
   setMacroInfo: React.Dispatch<React.SetStateAction<Doc[]>>
   userName: string
-  isOpen: boolean
 }
 
-function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName, isOpen}: Home){
+function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: Home){
     const [feed, setFeed] = useState <Array<Doc>>([])
     const [isProcessing, setIsProcessing] = useState(false)
-    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 640)
 
     const liked = (post: Doc): boolean => {
         const inList = post.reactions.find((u: string)=>userName === u)
@@ -55,26 +53,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName, is
         getPost()
     }, [page])
 
-    useEffect(() => {
-        const handleResize = () => {
-            setIsSmallScreen(window.innerWidth < 640)
-        }
-        window.addEventListener('resize', handleResize)
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    },[])
-
-    useEffect(() => {
-        if (isOpen && isSmallScreen) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = 'auto'
-        }
-        return () => {
-            document.body.style.overflow = 'auto'
-        }
-    },[isOpen, isSmallScreen])
+    
 
   useEffect(() => {
     if (page !== 0) return
@@ -102,7 +81,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName, is
   }, [page])
 
     return(
-    <ul className="space-y-2 text-white">
+    <ul className="space-y-2 text-white h-[100vh]">
         {feed.map((post) => (
         <li key={post.title}>
             <div className="h-auto m-auto bg-black flex flex-col justify-between select-text
@@ -132,6 +111,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName, is
             </div>
         </li>
         ))}
+        <div className="h-6"></div>
     </ul>
     )
 }

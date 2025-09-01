@@ -9,14 +9,12 @@ interface MacroHomeProps {
   setPost: React.Dispatch<React.SetStateAction<Doc>>
   visible: boolean
   userName: string
-  isOpen: boolean
 }
 
-function MacroHome({macroName, page, setPage, setPost, visible, userName, isOpen}: MacroHomeProps){
+function MacroHome({macroName, page, setPage, setPost, visible, userName}: MacroHomeProps){
     const [macroPosts, setMacroPosts] = useState<Doc[]>([])
     const [timeOut, setTimeOut] = useState(false)
     const [isProcessing, setIsProcessing] = useState(false)
-    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 640)
 
 
     const liked = (post: Doc): boolean => {
@@ -61,27 +59,6 @@ function MacroHome({macroName, page, setPage, setPost, visible, userName, isOpen
         getPost()
     }, [page, macroName])
 
-    useEffect(() => {
-        const handleResize = () => {
-            setIsSmallScreen(window.innerWidth < 640)
-        }
-        window.addEventListener('resize', handleResize)
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    },[])
-
-  useEffect(() => {
-    console.log('Overflow effect:', { isOpen, isSmallScreen })
-    if (isOpen && isSmallScreen) {
-        document.body.style.overflow = 'hidden'
-    } else {
-        document.body.style.overflow = 'auto'
-    }
-    return () => {
-        document.body.style.overflow = 'auto'
-    }
-  },[isOpen, isSmallScreen])
 
 
     return(
