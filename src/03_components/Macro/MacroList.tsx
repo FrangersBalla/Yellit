@@ -109,7 +109,7 @@ function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname,
             </div>
           </li>
         ))}
-        <div className="flex justify-end transparent items-center w-full h-18 px-4"></div>
+        <div className="flex justify-end transparent items-center w-full h-23 px-4"></div>
       </ul>
     </div></>
   )
