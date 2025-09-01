@@ -27,7 +27,7 @@ function AuthControl({ loggato, onLoginChange, setUser, setIsOpen}: AuthControlP
   }
 
   return (
-    <>{!loggato && (<div className="bg-transparent p-6 rounded-lg shadow-md ">
+    <>{!(loggato && auth?.currentUser) && (<div className="bg-transparent p-6 rounded-lg shadow-md ">
       <h2 className="text-2xl font-bold mb-6 text-center">Accedi</h2>
         <button onClick={handleAuth} className="w-full bg-amber-200 py-2 rounded-lg text-black transition">
             {loggato ? 'LogOut' : 'Get In'}

@@ -110,7 +110,7 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
                 {(loggato) && (
                   <>
                   {(page == 0 || (oldPage == 0 && page != 2)) && (<div><button onClick={handleCreateMacro} className="w-full bg-amber-200 py-2 mb-4 rounded-xl text-black hover:bg-amber-200 transition">
-                    New macro
+                    New channel
                   </button></div>)}
                   <div className='flex-grow overflow-y-auto mt-4 mb-4 pr-1'>
                   <MacroList

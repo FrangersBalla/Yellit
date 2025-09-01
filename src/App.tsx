@@ -74,7 +74,8 @@ function App() {
               setMacroInfo={setMacroInfo}
               setShouldReload={setShouldReload}
               setOldPage={setOldPage}
-              setOpenIndex={setOpenIndex}/>
+              setOpenIndex={setOpenIndex}
+              isOpen={isOpen}/>
               {show && (<MacroPage setShowMacro={setShow} user={user} setShouldReload={setShouldReload} setMacroname={setMacroname} setPage={setPage} macroInfo={macroInfo} macroList={macroList} setOpenIndex={setOpenIndex} setOldPage={setOldPage}/>)}
           </main>
         </div>

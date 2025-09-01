@@ -10,11 +10,14 @@ interface Home {
   setShowMacro: React.Dispatch<React.SetStateAction<boolean>>
   setMacroInfo: React.Dispatch<React.SetStateAction<Doc[]>>
   userName: string
+  isOpen: boolean
 }
 
-function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: Home){
+function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName, isOpen}: Home){
     const [feed, setFeed] = useState <Array<Doc>>([])
     const [isProcessing, setIsProcessing] = useState(false)
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 640)
+
     const liked = (post: Doc): boolean => {
         const inList = post.reactions.find((u: string)=>userName === u)
         return ((inList && post.likes == post.reactions.length) || post.likes == post.reactions.length +1)
@@ -51,6 +54,27 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
         if (page !== 0) return
         getPost()
     }, [page])
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth < 640)
+        }
+        window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    },[])
+
+    useEffect(() => {
+        if (isOpen && isSmallScreen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'auto'
+        }
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
+    },[isOpen, isSmallScreen])
 
   useEffect(() => {
     if (page !== 0) return

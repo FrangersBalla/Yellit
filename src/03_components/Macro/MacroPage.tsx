@@ -71,7 +71,6 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
     goToInfo()
   }, [page])
 
-
   return (
     <div className="min-h-screen bg-black opacity-75 rounded-xl lg:m-20 p-4">
       <div className='flex flex-row mb-6'>

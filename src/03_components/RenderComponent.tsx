@@ -27,9 +27,10 @@ interface RenderComponentProps {
   setShouldReload: React.Dispatch<React.SetStateAction<boolean>>
   setOldPage: React.Dispatch<React.SetStateAction<number>>
   setOpenIndex: React.Dispatch<React.SetStateAction<string | null>>
+  isOpen: boolean
 }
 
-function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato, macroName, user, setPost, post, setShowMacro, setMacroInfo, setShouldReload, setMacroname, setOpenIndex }: RenderComponentProps) {
+function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato, macroName, user, setPost, post, setShowMacro, setMacroInfo, setShouldReload, setMacroname, setOpenIndex, isOpen }: RenderComponentProps) {
   const [visiblePage, setVisiblePage] = useState(page)
   const [visible, setVisible] = useState(false)
   const [signUp, setSignUp] = useState(true)
@@ -62,7 +63,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
           case 1:
             return <div><CreateMacro setOpenIndex={setOpenIndex} setMacroname={setMacroname} setSucc={setSucc} setPage={setPage} user={user} setOldPage={setOldPage}/></div>
           case 2:
-            return <MacroHome macroName={macroName} page={page} setPage={setPage} setPost={setPost} visible={visible} userName={user!.nickName}/>
+            return <MacroHome isOpen={isOpen} macroName={macroName} page={page} setPage={setPage} setPost={setPost} visible={visible} userName={user!.nickName}/>
           case 3:
             return <div><CreatePost setSucc={setSucc} setPage={setPage} macroName={macroName} name={user!.nickName} /></div>
           case 4:
@@ -72,7 +73,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
           case 6:
             return <></>
             default:
-            return <Home page={page} setPage={setPage} setPost={setPost} setShowMacro={setShowMacro} setMacroInfo={setMacroInfo} userName={user!.nickName}/>
+            return <Home isOpen={isOpen} page={page} setPage={setPage} setPost={setPost} setShowMacro={setShowMacro} setMacroInfo={setMacroInfo} userName={user!.nickName}/>
         }
       })()}
     </div>

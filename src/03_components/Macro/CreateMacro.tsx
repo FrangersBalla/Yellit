@@ -32,15 +32,15 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
   const load = async () => {
     if (!hasLoaded) {
       const topicsArray = await loadTopics()
-      setTopics(topicsArray)
       setHasLoaded(true)
+      setTopics(topicsArray)
     }
   }
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedOptions = Array.from(e.target.selectedOptions, opt => opt.value)
 
-    if (selectedTopics.length <= 3) {
+    if (selectedTopics.length < 3) {
       setSelectedTopics(prev => [...new Set<string>([...prev, ...selectedOptions])])
     } else {
       alert('You can select up to 3 topics only')
@@ -82,7 +82,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
           >
             <img src="/icons/close.svg" alt="Close" className="w-6 h-6 invert" />
           </button>
-          <h2 className="text-2xl text-white font-bold">Create Macro</h2>
+          <h2 className="text-2xl text-white font-bold">Create Channel</h2>
         </div>
 
         <div className="mb-4">
@@ -93,7 +93,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
             id="name"
             onKeyDown={handleKeyDown}
             required
-            placeholder="Name your macro..."
+            placeholder="Name your channel..."
             onChange={(e) => setNewMacroName(e.target.value)}
             value={newMacroName}
             className="shadow appearance-none border-none rounded w-full py-2 pr-3 text-gray-500 focus:not-placeholder-shown:text-white leading-tight focus:outline-none focus:shadow-outline"
@@ -134,7 +134,12 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
               <>
                 <option value="">Select up to 3 topics</option>
                 {topics.map(topic => (
-                  <option className='text-white' key={topic} value={topic}>
+                  <option
+                  className='text-white'
+                  key={topic}
+                  value={topic}
+                  disabled={selectedTopics.length >= 3 && !selectedTopics.includes(topic)}
+                  >
                     {topic}
                   </option>
                 ))}
@@ -150,7 +155,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
             onClick={onSubmitMacro}
             className="mt-20 w-full bg-amber-200 py-2 mb-4 rounded-lg text-black transition"
           >
-            Create new macro
+            Create new channel
           </button>
         </div>
       </form>
