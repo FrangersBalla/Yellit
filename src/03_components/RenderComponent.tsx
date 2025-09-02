@@ -77,7 +77,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
 
   return (
     <div
-      className={`overflow-y-auto h-full transition-opacity  ${scroll ? 'duration-[1s,15s]' : ''} ${visible ? 'opacity-100' : 'opacity-0'}`}
+      className={`overflow-y-auto overflow-x-hidden h-full transition-opacity  ${scroll ? 'duration-[1s,15s]' : ''} ${visible ? 'opacity-100' : 'opacity-0'}`}
     >
       <div className="lg:hidden min-w-screen mt-10 bg-transparent relative h-1 "></div>
       {(() => {

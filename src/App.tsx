@@ -32,8 +32,9 @@ function App() {
 
   return (
     <>
-      <div className="h-screen flex flex-col overflow-x-hidden">
+      <div className="h-screen flex flex-col overflow-hidden">
         <Upbar setPage={setPage} setOldPage={setOldPage} setShowMacro={setShow} setMacroInfo={setMacroInfo}></Upbar>
+        <div className="lg:hidden min-w-screen mt-3 bg-transparent relative h-1"></div>
           <Sidebar
             setPage={setPage} 
             page={page}
