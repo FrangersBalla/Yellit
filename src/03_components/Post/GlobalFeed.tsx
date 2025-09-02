@@ -39,13 +39,13 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
     const inList = post.reactions.find((u: string) => userName === u)
 
     if ((!inList && post.likes === post.reactions.length) || post.likes === post.reactions.length - 1) {
-      setFeed(prevFeed => prevFeed.map(p => p.title === post.title ? { ...p, likes: p.likes + 1 } : p))
+      setFeed(prevFeed => prevFeed.map(p => p.id === post.id ? { ...p, likes: p.likes + 1 } : p))
       try {
         await AddLike(post, userName)
       } catch (error) {
       }
     } else if ((inList && post.likes === post.reactions.length) || post.likes === post.reactions.length + 1) {
-      setFeed(prevFeed => prevFeed.map(p => p.title === post.title ? { ...p, likes: p.likes - 1 } : p))
+      setFeed(prevFeed => prevFeed.map(p => p.id === post.id ? { ...p, likes: p.likes - 1 } : p))
       try {
         await RemoveLike(post, userName)
       } catch (error) {
@@ -87,7 +87,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
   return(
     <ul className="space-y-2 text-white h-[100vh]">
       {feed.map((post) => (
-        <li key={post.title} className="last:pb-30">
+        <li key={post.id} className="last:pb-32">
           <div className="h-auto m-auto bg-black flex flex-col justify-between select-text 
             opacity-75 shadow-md rounded-xl w-14/15 mb-10 lg:m-20 lg:w-11/15 p-6">
             <div>

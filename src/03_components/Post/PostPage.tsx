@@ -70,8 +70,7 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
     },[page, submit])
 
     return(
-        <div className="space-y-2 text-white h-auto m-auto bg-black flex flex-col justify-between select-text
-            opacity-75 shadow-md rounded-xl w-14/15 mb-10 lg:m-20 lg:w-11/15 p-6">
+        <div className="flex flex-col min-h-screen overflow-y-auto space-y-2 text-white bg-black opacity-75 shadow-md rounded-xl w-14/15 mb-30 md:m-20 lg:w-11/15 p-6 pb-20">
             <div>
                 <div className="mb-2 items-center">
                     <div className="flex gap-2 flex-wrap font-medium text-base">
@@ -108,7 +107,7 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
                         <div key={i} className="bg-zinc-800 p-3 rounded-lg">
                             <div className="flex justify-between items-center mb-1">
                             <span className="text-sm font-medium text-amber-200">{comm.userName}</span>
-                            <span className="text-xs text-gray-400">{comm.createdAt!.toDate()!.toLocaleDateString('it-IT', {day: '2-digit', month: '2-digit', year: '2-digit'})}</span>
+                            <span className="text-xs text-gray-400">{comm.createdAt!.toDate()!.toLocaleDateString('it-IT', {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit'})}</span>
                             </div>
                             <p className="text-sm text-white break-words inline">{comm.comment}</p>
                         </div>

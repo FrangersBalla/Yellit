@@ -56,7 +56,7 @@ export const GlobalFeed = async (): Promise<Doc[]>  => {
   const q = query(
     collection(db, 'posts'),
     orderBy('createdAt', 'desc'),
-    limit(10)
+    limit(20)
   )
   try {
     const data = await getDocs(q)
