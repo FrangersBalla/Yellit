@@ -34,8 +34,6 @@ function App() {
     <>
       <div className="h-screen flex flex-col overflow-x-hidden">
         <Upbar setPage={setPage} setOldPage={setOldPage} setShowMacro={setShow} setMacroInfo={setMacroInfo}></Upbar>
-        <div className="flex-1 lg:flex-row flex h-screen flex-col">
-          <div className="lg:hidden min-w-screen mt-10 bg-transparent relative h-1 "></div>
           <Sidebar
             setPage={setPage} 
             page={page}
@@ -79,7 +77,6 @@ function App() {
               {show && (<MacroPage setShowMacro={setShow} user={user} setShouldReload={setShouldReload} setMacroname={setMacroname} setPage={setPage} macroInfo={macroInfo} macroList={macroList} setOpenIndex={setOpenIndex} setOldPage={setOldPage}/>)}
           </main>
         </div>
-      </div>
     </>
   );
 }
