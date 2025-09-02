@@ -110,7 +110,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
             </div>
         </li>
         ))}
-        <div className="h-6"></div>
+        <div className="h-6 mb-4"></div>
     </ul>
     )
 }

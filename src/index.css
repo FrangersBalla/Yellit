@@ -10,7 +10,10 @@ body::before {
   z-index: -1;
   will-change: transform;
   background-color: black;
-  overflow: auto;
+}
+
+body {
+  background-color: black;
 }
 
 

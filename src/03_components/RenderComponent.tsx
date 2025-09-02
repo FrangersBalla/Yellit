@@ -77,7 +77,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
 
   return (
     <div
-      className={`transition-opacity duration-[1s,15s] ${scroll} ${visible ? 'opacity-100' : 'opacity-0'}`}
+      className={`overflow-y-auto h-full transition-opacity  ${scroll ? 'duration-[1s,15s]' : ''} ${visible ? 'opacity-100' : 'opacity-0'}`}
     >
       {(() => {
         if(page!=visiblePage || !loggato ) return <div className="flex items-center justify-center h-full mt-30 lg:mr-40"></div>
