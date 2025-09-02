@@ -72,7 +72,7 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
   }, [page])
 
   return (
-    <><div className="min-h-screen bg-black opacity-75 rounded-xl lg:m-20 p-4">
+    <><div className="bg-black flex flex-col h-[100hv] mb-20 opacity-75 rounded-xl lg:m-20 p-4">
       <div className='flex flex-row mb-6'>
         <button onClick={()=>setPage(oldPage)} className=""><img src="/icons/back.svg" alt= '' className="right-0 w-6 h-6 invert opacity-50 mr-3"/></button>
         <div className="text-2xl font-semibold text-white">{macroName}</div>
@@ -186,7 +186,6 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
       )}
       </>)}
     </div>
-    <div className="h-20"></div>
     </>
   )
 }

@@ -33,7 +33,7 @@ interface RenderComponentProps {
 function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato, macroName, user, setPost, post, setShowMacro, setMacroInfo, setShouldReload, setMacroname, setOpenIndex, isOpen }: RenderComponentProps) {
   const [visiblePage, setVisiblePage] = useState(page)
   const [visible, setVisible] = useState(false)
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 640)
+  const [isSmallScreen, setIsSmallScreen] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 640 : false)
   const [signUp, setSignUp] = useState(true)
   const [scroll, setScroll] = useState(true)
 
@@ -50,10 +50,6 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
     }
   }, [page, macroName])
 
-  useEffect(()=> {
-    setSignUp(true)
-  },[])
-
   useEffect(() => {
     const handleResize = () => {
         setIsSmallScreen(window.innerWidth < 640)
@@ -62,42 +58,47 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
     return () => {
         window.removeEventListener('resize', handleResize)
     }
-  },[])
+  }, [])
 
-    useEffect(() => {
-      if (isOpen && isSmallScreen) {
-          setScroll(false)
-      } else {
-          setScroll(true)
-      }
-      return () => {
-          setScroll(true)
-      }
-    },[isOpen, isSmallScreen])
+  useEffect(() => {
+    if (isOpen && isSmallScreen) {
+        setScroll(false)
+    } else {
+        setScroll(true)
+    }
+    return () => {
+        setScroll(true)
+    }
+  }, [isOpen, isSmallScreen])
+
+  if(page !== visiblePage || !loggato) {
+    return <div className="flex items-center justify-center h-full mt-30 lg:mr-40"></div>
+  }
+
+  if(user && user.isNew && signUp) {
+    return <SingUp setShouldReload={setShouldReload} setSignUp={setSignUp} />
+  }
 
   return (
     <div
-      className={`overflow-y-auto overflow-x-hidden h-full transition-opacity  ${scroll ? 'duration-[1s,15s]' : ''} ${visible ? 'opacity-100' : 'opacity-0'}`}
+      className={`overflow-y-auto overflow-x-hidden h-screen transition-opacity duration-[1150ms] ${!scroll ? 'overflow-y-hidden' : ''} ${visible ? 'opacity-100' : 'opacity-0'}`}
     >
-      <div className="lg:hidden min-w-screen mt-10 bg-transparent relative h-1 "></div>
       {(() => {
-        if(page!=visiblePage || !loggato ) return <div className="flex items-center justify-center h-full mt-30 lg:mr-40"></div>
-        if(user!.isNew && signUp) return <div><SingUp setShouldReload={setShouldReload} setSignUp={setSignUp}/></div>
-        if (scroll) switch (visiblePage) {
+        switch (visiblePage) {
           case 1:
-            return <div><CreateMacro setOpenIndex={setOpenIndex} setMacroname={setMacroname} setSucc={setSucc} setPage={setPage} user={user} setOldPage={setOldPage}/></div>
+            return <CreateMacro setOpenIndex={setOpenIndex} setMacroname={setMacroname} setSucc={setSucc} setPage={setPage} user={user} setOldPage={setOldPage} />
           case 2:
-            return <MacroHome macroName={macroName} page={page} setPage={setPage} setPost={setPost} visible={visible} userName={user!.nickName}/>
+            return <MacroHome macroName={macroName} page={page} setPage={setPage} setPost={setPost} visible={visible} userName={user!.nickName} />
           case 3:
-            return <div><CreatePost setSucc={setSucc} setPage={setPage} macroName={macroName} name={user!.nickName} /></div>
+            return <CreatePost setSucc={setSucc} setPage={setPage} macroName={macroName} name={user!.nickName} />
           case 4:
-            return <PostPage post={post} setPage={setPage} page={page} oldPage={oldPage}  userName={user!.nickName}/>
+            return <PostPage post={post} setPage={setPage} page={page} oldPage={oldPage} userName={user!.nickName} />
           case 5:
-            return <MacroSettings page={page} setPage={setPage} setOldPage={setOldPage} macroName={macroName} oldPage={oldPage} user={user} setShouldReload={setShouldReload}/>
+            return <MacroSettings page={page} setPage={setPage} setOldPage={setOldPage} macroName={macroName} oldPage={oldPage} user={user} setShouldReload={setShouldReload} />
           case 6:
             return <></>
-            default:
-            return <Home page={page} setPage={setPage} setPost={setPost} setShowMacro={setShowMacro} setMacroInfo={setMacroInfo} userName={user!.nickName}/>
+          default:
+            return <Home page={page} setPage={setPage} setPost={setPost} setShowMacro={setShowMacro} setMacroInfo={setMacroInfo} userName={user!.nickName} />
         }
       })()}
     </div>

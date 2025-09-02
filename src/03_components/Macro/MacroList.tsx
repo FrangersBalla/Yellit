@@ -70,7 +70,7 @@ function MacroList({ shouldReload, onReloadHandled, setPage, page, setMacroname,
  
   return (
     <>
-    <div className='flex-grow overflow-y-auto'>
+    <div className='flex-grow'>
       <ul className="space-y-2 ">
         {macroList.map((macro) => (
           <li key={macro.macroName}>

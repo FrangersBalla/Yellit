@@ -71,8 +71,8 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
   }
 
   return (
-    <div className="flex items-center justify-center h-full mt-5 md:mt-20 lg:mr-40">
-      <form className="bg-black opacity-100 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen md:mt-5 lg:mr-40">
+      <form className="bg-black opacity-100 shadow-md rounded px-4 pt-6 pb-8 w-full max-w-md">
         <div className="relative flex items-center justify-center mb-5 h-10">
           <button
             type="button"
@@ -85,7 +85,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
           <h2 className="text-2xl text-white font-bold">Create Channel</h2>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2">
           <label className="block text-white text-sm font-bold mb-2" htmlFor="name">
             Name
           </label>
@@ -100,7 +100,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
           />
         </div>
 
-        <div className="mb-6">
+        <div className="mb-1">
           <label className="block text-white text-sm font-bold mb-2" htmlFor="description">
             Description
           </label>
@@ -115,7 +115,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-1">
           <label className="block text-white text-sm font-bold mb-2" htmlFor="topic">
             Topic
           </label>
@@ -153,7 +153,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
           <button
             type="button"
             onClick={onSubmitMacro}
-            className="mt-20 w-full bg-amber-200 py-2 mb-4 rounded-lg text-black transition"
+            className="mt-10 w-full bg-amber-200 p-2 mb-4 rounded-lg text-black transition"
           >
             Create new channel
           </button>

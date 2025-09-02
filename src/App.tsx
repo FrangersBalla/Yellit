@@ -13,16 +13,16 @@ function App() {
   const [oldPage, setOldPage] = useState(0)
   const [user, setUser] = useState<User | null>(null)
   const [post, setPost] = useState<Doc>({})
-  const [show, setShow] = useState <boolean>(false)
+  const [show, setShow] = useState(false)
   const [shouldReload, setShouldReload] = useState(false)
   const [macroList, setMacroList] = useState<Doc[]>([])
   const [isOpen, setIsOpen] = useState(true)
-  const [macroInfo, setMacroInfo] = useState <Doc[]>([])
+  const [macroInfo, setMacroInfo] = useState<Doc[]>([])
   const [openIndex, setOpenIndex] = useState<string | null>(null)
 
-  useEffect(()=>{
+  useEffect(() => {
     setShow(false)
-  },[page, loggato])
+  }, [page, loggato])
 
   useEffect(() => {
     if (macroInfo.length > 0) {
@@ -33,18 +33,23 @@ function App() {
   return (
     <>
       <div className="h-screen flex flex-col overflow-hidden">
-        <Upbar setPage={setPage} setOldPage={setOldPage} setShowMacro={setShow} setMacroInfo={setMacroInfo}></Upbar>
-        <div className="lg:hidden min-w-screen mt-3 bg-transparent relative h-1"></div>
+        <Upbar
+          setPage={setPage}
+          setOldPage={setOldPage}
+          setShowMacro={setShow}
+          setMacroInfo={setMacroInfo}
+        />
+        <div className="flex flex-1">
           <Sidebar
-            setPage={setPage} 
+            setPage={setPage}
             page={page}
-            setCreated={setSucc} 
+            setCreated={setSucc}
             pageCreated={succ}
-            setLoggato={setLoggato} 
-            loggato={loggato} 
+            setLoggato={setLoggato}
+            loggato={loggato}
             setMacroname={setMacroname}
             setOldPage={setOldPage}
-            setUser={setUser} 
+            setUser={setUser}
             user={user}
             shouldReload={shouldReload}
             setShouldReload={setShouldReload}
@@ -54,33 +59,49 @@ function App() {
             macroList={macroList}
             oldPage={oldPage}
             openIndex={openIndex}
-            setOpenIndex={setOpenIndex}/>
-          <main className="flex-1 p-4 overflow-hidden">
-            <div className="h-8"></div>
+            setOpenIndex={setOpenIndex}
+          />
+
+          <main className="flex-1 pt-20 md:pt-4 p-4 overflow-hidden">
             <RenderComponent
               setPage={setPage}
               page={page}
               oldPage={oldPage}
-              setSucc={setSucc} 
+              setSucc={setSucc}
               loggato={loggato}
               setMacroname={setMacroname}
-              macroName={macroname} 
+              macroName={macroname}
               user={user}
               setPost={setPost}
-              post={post} 
+              post={post}
               setShowMacro={setShow}
               macroList={macroList}
               setMacroInfo={setMacroInfo}
               setShouldReload={setShouldReload}
               setOldPage={setOldPage}
               setOpenIndex={setOpenIndex}
-              isOpen={isOpen}/>
-              {show && (<MacroPage setShowMacro={setShow} user={user} setShouldReload={setShouldReload} setMacroname={setMacroname} setPage={setPage} macroInfo={macroInfo} macroList={macroList} setOpenIndex={setOpenIndex} setOldPage={setOldPage}/>)}
+              isOpen={isOpen}
+            />
+            {show && (
+              <MacroPage
+                setShowMacro={setShow}
+                user={user}
+                setShouldReload={setShouldReload}
+                setMacroname={setMacroname}
+                setPage={setPage}
+                macroInfo={macroInfo}
+                macroList={macroList}
+                setOpenIndex={setOpenIndex}
+                setOldPage={setOldPage}
+              />
+            )}
           </main>
         </div>
+      </div>
     </>
-  );
+  )
 }
 
 export default App
+
 

@@ -86,25 +86,25 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
     <div ref={boxRef} className="contents">
       <button
         onClick={toggleSidebar}
-        className={`lg:hidden fixed top-12 left-1 z-50 px-5 py-1 rounded-full text-white shadow-md
-                    bg-gradient-to-b from-black via-stone-950 to-black hover:bg-black hover:opacity-75`}
+        className="lg:hidden fixed top-12 left-1 z-50 px-5 py-1 rounded-full text-white shadow-md
+                  bg-gradient-to-b from-black via-stone-950 to-black hover:opacity-75"
       >
-        <img src="/icons/menu.svg" alt= '' className="right-0 w-6 h-6 invert opacity-50"/>
+        <img src="/icons/menu.svg" alt='' className="w-6 h-6 invert opacity-50"/>
       </button>
-      <div className="text-white max-l:hidden lg:w-60 lg:h-screen"></div>
-      {!(user && user!.isNew) && (
-        <>
-          <aside
-            className = {`
-              will-change: transform
-              bg-black min-lg:opacity-50 hover:opacity-100 text-white
-              p-4 rounded-tr-3xl fixed
-              max-sm:w-full max-md:w-4/7 max-lg:w-3/7 mt-18 h-full overflow-x-hidden 
-              transform transition-all duration-700 ease-out z-40 delay-0
-              ${isOpen? 'translate-x-0' : '-translate-x-full'}
-              lg:translate-x-0 lg:block lg:w-60 lg:hover:w-5/17
-            `}
-          >
+
+      <div className="hidden lg:block w-60 h-screen text-white"></div>
+
+      {!(user && user.isNew) && (
+        <aside
+          className={`
+            will-change-transform bg-black
+            text-white p-4 rounded-tr-3xl fixed
+            max-sm:w-full max-md:w-4/7 max-lg:w-3/7 h-full mt-18 z-40
+            transform transition-all duration-700 ease-out
+            ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+            lg:translate-x-0 lg:block lg:w-60 lg:hover:w-[30%]
+          `}
+        >
           <nav className="h-full flex flex-col">
                 <AuthControl loggato={loggato} onLoginChange={handleLoginChange} setUser={setUser} setIsOpen={setIsOpen}/>
                 {(loggato) && (
@@ -128,13 +128,12 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
                     setIsSideBarOpen={setIsOpen}
                   />
                   </div>
-                  <div className="absolute bottom-15 left-0 w-full p-6">
+                  <div className="absolute bottom-16 left-0 w-full">
                     {loggato && (<UserCard CurrentUser={user!} onLoginChange={handleLoginChange} setOldPage={setOldPage} setPage={setPage}/>)}
                   </div></>
                 )}
             </nav>
-          </aside>
-        </>)}
+          </aside>)}
     </div>
   );
 }

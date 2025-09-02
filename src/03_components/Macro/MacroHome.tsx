@@ -47,7 +47,7 @@ function MacroHome({macroName, page, setPage, setPost, visible, userName}: Macro
         setTimeOut(false)
         const timeoutShow = setTimeout(() => {
             setTimeOut(true)
-        }, 600)
+        }, 1200)
 
         return () => {
         clearTimeout(timeoutShow)
@@ -62,9 +62,9 @@ function MacroHome({macroName, page, setPage, setPost, visible, userName}: Macro
 
 
     return(
-    <ul className="space-y-2 text-white">
+    <ul className="space-y-2 text-white h-[100vh]">
         {visible && (macroPosts.map((post) => (
-        <li key={post.title}>
+        <li key={post.title} className="last:pb-20">
             <div className="h-auto m-auto bg-black flex flex-col justify-between select-text
                 opacity-75 shadow-md rounded-xl w-14/15 mb-10 lg:m-20 lg:w-11/15 p-6">
                 <div>
@@ -88,12 +88,11 @@ function MacroHome({macroName, page, setPage, setPost, visible, userName}: Macro
                     <div className='bg-gray-700/25 hover:bg-white/25 px-3 py-1 rounded-2xl'><button onClick={()=>{setPost(post);setPage(4)}}
                         className="text-right whitespace-nowrap">Comments: {post.reviews} </button>
                     </div>
-                    <h5 className=""></h5>
                 </div>
             </div>
         </li>
         )))}
-        {(macroPosts.length == 0 && visible && timeOut) && (<div className='w-14/15 bg-black/25 p-5 text-lg text-center text-white mt-30 rounded-lg transition-all delay-[1s]'><h1>“No posts yet. Be the first to say something!”</h1></div>)}
+        {(macroPosts.length == 0 && visible && timeOut) && (<div className='w-14/15 bg-black/25 p-5 text-lg text-center text-white mt-30 rounded-lg'><h1>“No posts yet. Be the first to say something!”</h1></div>)}
     </ul>
     )
 }
