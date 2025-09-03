@@ -71,7 +71,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
   }
 
   return (
-    <div className="flex items-center justify-center items-center mb-20 mt-20 lg:mr-40">
+    <div className="flex items-center justify-center items-center mb-20 mt-16 md:mt-20 md:px-20 lg:mr-40">
       <form className="bg-black opacity-100 shadow-md rounded px-4 pt-6 pb-8 w-full max-w-md">
         <div className="relative flex items-center justify-center mb-5 h-10">
           <button
@@ -115,7 +115,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
           />
         </div>
 
-        <div className="mb-1">
+        {false &&<div className="mb-1">
           <label className="block text-white text-sm font-bold mb-2" htmlFor="topic">
             Topic
           </label>
@@ -147,7 +147,7 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
             )}
           </select>
           <p className="text-sm text-white mt-2">Selected: {selectedTopics.join(', ') || 'None'}</p>
-        </div>
+        </div>}
 
         <div className="flex items-center justify-between">
           <button

@@ -18,30 +18,24 @@ interface LikesPieProps {
 
 export default function LikesPie({ macroName, page, mems }: LikesPieProps) {
   const [data, setData] = useState<[number, number]>([0,0])
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true)
       try {
         const result = await getLikesSubscriptionStatus(macroName, mems)
         setData(result)
       } catch (error) {
         console.error(error)
       } finally {
-        setLoading(false)
       }
     }
 
     if (page !== 5) return
     if (!mems || mems.size === 0) {
-        setLoading(false)
         return
     }
     fetchData()
   }, [mems, page])
-
-  if (loading) return null
 
   const chartData = {
     labels: ['Subscribed', 'Unsubscribed'],
@@ -49,7 +43,8 @@ export default function LikesPie({ macroName, page, mems }: LikesPieProps) {
       {
         data: [data[0], data[1]],
         backgroundColor: ['#680508ff', '#f8d671ff'],
-        hoverBackgroundColor: ['#eb2525ff', '#edca31ff']
+        hoverBackgroundColor: ['#eb2525ff', '#edca31ff'],
+        borderWidth: 0
       }
     ]
   }
@@ -62,7 +57,7 @@ export default function LikesPie({ macroName, page, mems }: LikesPieProps) {
       title: {
         display: false,
         text: ''
-      }
+      },
     }
   }
 
