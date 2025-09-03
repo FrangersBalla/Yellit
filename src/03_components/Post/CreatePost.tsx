@@ -50,7 +50,7 @@ function CreatePost({ setSucc, setPage, macroName, name }: (NewMacroProps)){
 
         <div className="mb-4">
             <label className="block text-white text-md font-bold mb-2" htmlFor="title">
-                Title 📚
+                Title
             </label>
             <input
                 onKeyDown={handleKeyDown}
@@ -62,7 +62,7 @@ function CreatePost({ setSucc, setPage, macroName, name }: (NewMacroProps)){
 
         <div className="mb-1">
             <label className="block text-white font-bold mb-2" htmlFor="content">
-            Insight 💭
+                Message
             </label>
             <textarea
             id="content"
