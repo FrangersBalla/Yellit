@@ -98,7 +98,7 @@ export default function WeeklyUsage ({ macroName, page}: WeeklyChartProps){
         ticks: {
           stepSize: 1,
         },
-        suggestedMax: 5
+        suggestedMax: 10
       }
     }
   }
