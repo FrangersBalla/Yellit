@@ -1,6 +1,8 @@
 import { AddMembership } from "../../01_api/Xmacro"
 import { useState, useEffect } from "react"
 import { ShowMembers, GetMacroInfo, AddRole, RemoveAccount } from "../../01_api/Xmacro"
+import WeeklyUsage from "../../04_graphs/UsageGraph"
+import LikesPie from "../../04_graphs/LikesGraph"
 
 
 interface MacroSettsProps {
@@ -72,7 +74,7 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
   }, [page])
 
   return (
-    <><div className="bg-black flex flex-col h-[100hv] mb-20 opacity-75 rounded-xl lg:m-20 p-4">
+    <><div className="bg-black flex flex-col h-[100hv] mb-20 opacity-75 rounded-xl lg:m-20 mb-30 p-4">
       <div className='flex flex-row mb-6'>
         <button onClick={()=>setPage(oldPage)} className=""><img src="/icons/back.svg" alt= '' className="right-0 w-6 h-6 invert opacity-50 mr-3"/></button>
         <div className="text-2xl font-semibold text-white">{macroName}</div>
@@ -87,12 +89,15 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
       </div>
       <div className="bg-zinc-950 rounded-lg mb-4 divide-y divide-gray-900">
         <div className="border-b border-amber-200/25 px-4 py-3 font-medium text-amber-200">Members</div>
-        {macroMems.map((m)=>{
-            return (<div className={`px-4 py-3 hover:bg-zinc-900 transition-colors duration-100 cursor-pointer ${m === macroMems[macroMems.length - 1]? 'rounded-b-lg':''}`}>
-              <div className="text-sm text-white">{m.userName}</div>
-              <div className={`text-xs ${m.role == 'Owner' ? 'text-amber-600' : 'text-gray-200'}`}>{m.role}</div>
-            </div>)
-          })}
+        {macroMems.map((m) => (
+          <div
+            key={m.id}
+            className={`px-4 py-3 hover:bg-zinc-900 transition-colors duration-100 cursor-pointer ${m === macroMems[macroMems.length - 1] ? 'rounded-b-lg' : ''}`}
+          >
+            <div className="text-sm text-white">{m.userName}</div>
+            <div className={`text-xs ${m.role == 'Owner' ? 'text-amber-600' : 'text-gray-200'}`}>{m.role}</div>
+          </div>
+        ))}
       </div>
       <div className="bg-zinc-950 rounded-lg mb-4 divide-y divide-gray-900">
         <div className="px-4 py-3 border-b border-amber-200/25 font-semibold  text-md text-amber-200">Members settings</div>
@@ -157,7 +162,7 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
             >
             <div className='mt-2'>
               {((p =='Owner' && sV > 0) || (macroMems.length - sV -1 > 1)) ? macroMems.map((m)=>(
-                 (<div className='m-1'>
+                 (<div className='m-1'  key={m.id}>
                   {((m.role == 'Member' || (p == 'Owner' && m.role != 'Owner') && m.userName != user!.nickName) && <button className="px-2 text-sm text-amber-200 hover:bg-zinc-900 rounded-lg"
                       onClick={()=>handleRmvClick(m.id!, m.role)}
                     >
@@ -170,11 +175,13 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
             </div> 
           </div>
         </div>
-          <div className="w-3/5 mx-auto pb-10 mt-20 mb-4">
-            <button onClick={handleLeave} className="w-full bg-amber-200 py-2 rounded-lg text-black transition">
-              Leave
-            </button>
-          </div>
+      </div>
+      <WeeklyUsage macroName={macroName} page={page} />
+      <LikesPie  macroName={macroName} page={page} mems={new Set(macroMems.map(m => m.userName))}/>
+      <div className="w-3/5 mx-auto pb-10 mt-20 mb-4">
+        <button onClick={handleLeave} className="w-full bg-amber-200 py-2 rounded-lg text-black transition">
+          Leave
+        </button>
       </div>
       {(!isSuperV && hover) && (
         <div

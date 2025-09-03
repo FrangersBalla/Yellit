@@ -128,7 +128,7 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
                     setIsSideBarOpen={setIsOpen}
                   />
                   </div>
-                  <div className="absolute bottom-16 left-0 w-full">
+                  <div className="absolute bg-black bottom-16 left-0 w-full">
                     {loggato && (<UserCard CurrentUser={user!} onLoginChange={handleLoginChange} setOldPage={setOldPage} setPage={setPage}/>)}
                   </div></>
                 )}
