@@ -70,7 +70,7 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
     },[page, submit])
 
     return(
-        <div className="flex flex-col min-h-screen overflow-y-auto space-y-2 text-white bg-black opacity-75 shadow-md rounded-xl w-14/15 mb-40 md:m-20 lg:w-11/15 p-6 pb-20">
+        <div className="flex flex-col min-h-screen overflow-y-auto space-y-2 text-white bg-black opacity-75 shadow-md rounded-xl w-14/15 mb-40 md:m-20 lg:w-11/15 p-6 pb-12">
             <div>
                 <div className="mb-2 items-center">
                     <div className="flex gap-2 flex-wrap font-medium text-base">

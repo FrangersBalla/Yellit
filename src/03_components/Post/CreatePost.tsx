@@ -34,7 +34,7 @@ function CreatePost({ setSucc, setPage, macroName, name }: (NewMacroProps)){
     }
 
     return (
-    <div className="flex items-center justify-center  mt-14 lg:mt-30 mb-8 sm:px-6 lg:px-40">
+    <div className="flex items-center justify-center min-h-screen mt-14 lg:mt-30 mb-8 sm:px-6 lg:px-40">
       <form 
         onSubmit={(e) => {
             e.preventDefault()
