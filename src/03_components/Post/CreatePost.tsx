@@ -34,13 +34,13 @@ function CreatePost({ setSucc, setPage, macroName, name }: (NewMacroProps)){
     }
 
     return (
-    <div className="flex items-center justify-center mt-8 mb-8 px-4 sm:px-6 lg:px-40 lg:mr-40">
+    <div className="flex items-center justify-center  mt-14 md:mt-30 mb-8 px-4 sm:px-6 lg:px-40">
       <form 
         onSubmit={(e) => {
             e.preventDefault()
             handleCreatePost()
         }}
-        className="bg-black opacity-100 shadow-md rounded px-8 pt-6 pb-8 w-full max-w-xl">
+        className="bg-black opacity-100 shadow-md rounded px-8 pt-6 pb-8 w-full">
         <div className="relative flex items-center justify-center mb-6 h-10">
             <button onClick={handleClose} className="absolute left-0 cursor-pointer">
                 <img src="/icons/close.svg" alt="" className="w-6 h-6 invert" />
@@ -60,7 +60,7 @@ function CreatePost({ setSucc, setPage, macroName, name }: (NewMacroProps)){
             />
         </div>
 
-        <div className="mb-6">
+        <div className="mb-1">
             <label className="block text-white font-bold mb-2" htmlFor="content">
             Insight 💭
             </label>
@@ -74,7 +74,7 @@ function CreatePost({ setSucc, setPage, macroName, name }: (NewMacroProps)){
         </div>
 
       <div className="flex items-center justify-between">
-        <button type='submit' className="mt-20 w-full bg-amber-200 py-2 mb-4 rounded-lg text-black transition">
+        <button type='submit' className="mt-12 w-full bg-amber-200 py-2 mb-4 rounded-lg text-black transition">
             Publish!
         </button>
       </div>
