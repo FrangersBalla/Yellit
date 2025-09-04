@@ -239,7 +239,7 @@ export function MacroPage({setShowMacro, user, setShouldReload, setMacroname, se
           </h1>
           <div className="flex justify-end">
             <button onClick={joinMacro} className="w-20 bg-amber-200 p-1 rounded-xl text-black">
-              Join
+              Enter
             </button>
           </div>
         </div>

@@ -103,8 +103,8 @@ export function SingUp({setSignUp}: SingUpProps) {
               <option value="Female">Female</option>
               <option value="Male">Male</option>
               <option value="Non-binary">Non-binary</option>
-              <option value="Queer">Queer</option>
               <option value="Robot">A robot that wants to end the world</option> 
+              <option value="Queer">Other</option>
               <option value="Prefer not to say">Prefer not to say</option>
           </select>
         </div>

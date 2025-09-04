@@ -70,10 +70,10 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
     },[page, submit])
 
     return(
-        <div className="h-full w-full flex flex-col overflow-y-auto items-center justify-center rounded-xl bg-black w-14/15 md:m-20 lg:w-11/15 p-6">
-            <div className="space-y-3 max-h-[calc(100vh-15rem)] overflow-y-auto text-white shadow-md">
-                <div className="sticky top-0 z-10 bg-black p-4">
-                    <div className="flex gap-2 flex-wrap items-center font-medium text-base mb-2">
+        <div className="h-full w-full flex flex-col overscroll-auto rounded-xl bg-black md:m-20 lg:w-11/15 pt-2 px-6 pb-6">
+            <div className="space-y-3 max-h-[calc(100vh-15rem)] overflow-y-auto text-white">
+                <div className="sticky top-0 z-10 bg-black p-2">
+                    <div className="flex gap-2  items-center font-medium text-base mb-2">
                         <button onClick={() => setPage(oldPage)} className="">
                             <img src="/icons/back.svg" alt='' className="w-6 h-6 invert opacity-50" />
                         </button>
@@ -83,7 +83,7 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
                     <h5 className="text-sm text-amber-200 font-thin">{post.createdAt.toDate().toLocaleString()}</h5>
                     <h1 className="text-3xl mt-4">{post.title}</h1>
                 </div>
-                <div><p className='mb-5 mt-5 text-left hyphens-auto line-clamp-none'>{translated ? translation : post.content}</p></div>
+                <div><p className='mb-5 p-3 text-left hyphens-auto break-words whitespace-pre-wrap text-wrap'>{translated ? translation : post.content}</p></div>
                 <div className='flex gap-2 flex-row font-thin text-sm mb-10 '>
                     <div className='bg-gray-700/25 hover:bg-white/25 px-3 py-1 rounded-2xl'>
                         <button onClick={reactionHandler} className="flex flex-center">
@@ -101,14 +101,14 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
 
                 <div className="mt-10 pt-5 space-y-4 border-t border-white/25">
                     <h2 className="text-lg font-semibold text-white">Comments</h2>
-                    <div className="space-y-3 max-h-64 overflow-y-auto pr-2 mb-20">
+                    <div className="space-y-3 max-h-64 overflow-y-auto pl-2 mb-20">
                         {commentsList.sort((a, b) => b.createdAt!.toDate()! - a.createdAt!.toDate()!).map((comm, i) => (
                             <div key={i} className="bg-zinc-800 p-3 rounded-lg">
                                 <div className="flex justify-between items-center mb-1">
                                 <span className="text-sm font-medium text-amber-200">{comm.userName}</span>
                                 <span className="text-xs text-gray-400">{comm.createdAt!.toDate()!.toLocaleDateString('it-IT', {day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit'})}</span>
                                 </div>
-                                <p className="text-sm text-white break-words inline">{comm.comment}</p>
+                                <p className="text-sm text-white break-words inline whitespace-pre-wrap">{comm.comment}</p>
                             </div>
                         ))}
                     </div>
