@@ -16,7 +16,7 @@ export default defineConfig({
         start_url: '/',
         display: 'standalone',
         background_color: '#000000',
-        theme_color: '#fbbf24',
+        theme_color: '#000000',
         icons: [
           // WINDOWS ICONS
           { src: 'windows11/SmallTile.scale-100.png', sizes: '71x71', type: 'image/png', purpose: 'any' },
