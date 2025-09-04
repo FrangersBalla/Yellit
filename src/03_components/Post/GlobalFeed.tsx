@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { GlobalFeed, AddLike, RemoveLike } from '../../01_api/Xpost'
 import type { Doc } from '../../02_lib/XTypes'
 import { GetMacroInfo } from "../../01_api/Xmacro"
@@ -15,6 +15,7 @@ interface HomeProps {
 function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: HomeProps){
   const [feed, setFeed] = useState<Doc[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
+  const scrollRef = useRef<HTMLUListElement>(null)
 
   const liked = (post: Doc): boolean => {
     const inList = post.reactions.find((u: string) => userName === u)
@@ -62,30 +63,36 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
 
   useEffect(() => {
     if (page !== 0) return
-    if (feed.length === 0) return
+    if (!scrollRef.current) return
 
     const savedScroll = sessionStorage.getItem('homeScroll')
     if (savedScroll) {
-      window.scrollTo(0, parseInt(savedScroll))
+      requestAnimationFrame(() => {
+        scrollRef.current!.scrollTop = parseInt(savedScroll)
+      })
     }
   }, [feed, page])
 
+  
   useEffect(() => {
     if (page !== 0) return
+    const element = scrollRef.current
+    if (!element) return
 
     const onScroll = () => {
-      sessionStorage.setItem('homeScroll', window.scrollY.toString())
+      sessionStorage.setItem('homeScroll', element.scrollTop.toString())
     }
 
-    window.addEventListener('scroll', onScroll)
+    element.addEventListener('scroll', onScroll)
 
     return () => {
-      window.removeEventListener('scroll', onScroll)
+      element.removeEventListener('scroll', onScroll)
     }
   }, [page])
 
+
   return(
-    <ul className="space-y-2 text-white h-[100vh] md:mt-16">
+    <ul className="space-y-2 text-white h-[100vh] md:mt-16" ref={scrollRef}>
       {feed.map((post) => (
         <li key={post.id} className="last:pb-32">
           <div className="h-auto m-auto bg-black flex flex-col justify-between select-text 
@@ -106,6 +113,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
               </div>
               <h1 className='mb-10 text-3xl text-left font-md'>{post.title}</h1>
               <button onClick={() => {
+                if (scrollRef.current) sessionStorage.setItem('homeScroll', scrollRef.current.scrollTop.toString())
                 setPost(post)
                 setPage(4)
               }}>

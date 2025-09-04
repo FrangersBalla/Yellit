@@ -77,6 +77,7 @@ export default defineConfig({
         ]
       },
       workbox: {
+        globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,svg,gif,webp}'],
         runtimeCaching: [
           {
             urlPattern: /.*\.(png|jpg|jpeg|svg|gif|webp)$/,
@@ -92,8 +93,19 @@ export default defineConfig({
               },
             },
           }
-        ]
-      }
+        ],
+      },
+      includeAssets: [
+        'icons/back.svg',
+        'icons/logout.svg',
+        'icons/add.svg',
+        'icons/exit.svg',
+        'icons/info.svg',
+        'icons/menu.svg',
+        'icons/newPost.svg',
+        'icons/reading.svg',
+        'icons/like.svg',
+      ],
     })
   ],
 })

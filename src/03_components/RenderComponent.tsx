@@ -28,9 +28,10 @@ interface RenderComponentProps {
   setOldPage: React.Dispatch<React.SetStateAction<number>>
   setOpenIndex: React.Dispatch<React.SetStateAction<string | null>>
   isOpen: boolean
+  isOnline: boolean
 }
 
-function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato, macroName, user, setPost, post, setShowMacro, setMacroInfo, setShouldReload, setMacroname, setOpenIndex, isOpen }: RenderComponentProps) {
+function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, isOnline, loggato, macroName, user, setPost, post, setShowMacro, setMacroInfo, setShouldReload, setMacroname, setOpenIndex, isOpen }: RenderComponentProps) {
   const [visiblePage, setVisiblePage] = useState(page)
   const [visible, setVisible] = useState(false)
   const [isSmallScreen, setIsSmallScreen] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 640 : false)
@@ -48,7 +49,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
     return () => {
       clearTimeout(timeoutShow)
     }
-  }, [page, macroName])
+  }, [page, macroName, isOnline])
 
   useEffect(() => {
     const handleResize = () => {
@@ -81,7 +82,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, loggato,
 
   return (
     <div
-      className={`overflow-y-auto overflow-x-hidden transition-opacity duration-[1150ms] ${!scroll ? 'overflow-y-hidden' : ''} ${visible ? 'opacity-100' : 'opacity-0'}`}
+      className={`overflow-y-auto overflow-x-hidden transition-opacity duration-[1150ms] ${!scroll ? 'overflow-y-hidden' : ''} ${(visible && isOnline) ? 'opacity-100' : 'opacity-0'}`}
     >
       {(() => {
         switch (visiblePage) {

@@ -16,9 +16,10 @@ function App() {
   const [show, setShow] = useState(false)
   const [shouldReload, setShouldReload] = useState(false)
   const [macroList, setMacroList] = useState<Doc[]>([])
-  const [isOpen, setIsOpen] = useState(true)
   const [macroInfo, setMacroInfo] = useState<Doc[]>([])
   const [openIndex, setOpenIndex] = useState<string | null>(null)
+  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine)
+  const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
     setShow(false)
@@ -30,6 +31,25 @@ function App() {
     }
   }, [macroInfo])
 
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true)
+      window.location.reload()
+    }
+    const handleOffline = () => {
+      setIsOnline(false)
+      window.location.reload()
+    }
+
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
+  }, [])
+
   return (
     <>
       <div className="h-screen flex flex-col overflow-hidden">
@@ -40,7 +60,7 @@ function App() {
           setMacroInfo={setMacroInfo}
         />
         <div className="flex flex-1">
-          <Sidebar
+          {isOnline && <Sidebar
             setPage={setPage}
             page={page}
             setCreated={setSucc}
@@ -60,7 +80,8 @@ function App() {
             oldPage={oldPage}
             openIndex={openIndex}
             setOpenIndex={setOpenIndex}
-          />
+            isOnline={isOnline}
+          />}
 
           <main className="flex-1 pt-20 md:pt-4 p-4 overflow-hidden">
             <RenderComponent
@@ -81,6 +102,7 @@ function App() {
               setOldPage={setOldPage}
               setOpenIndex={setOpenIndex}
               isOpen={isOpen}
+              isOnline={isOnline}
             />
             {show && (
               <MacroPage

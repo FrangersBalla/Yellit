@@ -29,7 +29,7 @@ export const CreateNewPost = async (macroName: string, name: string, title: stri
       reactions,
       reviews,
     })
-    return 0; // successo
+    return 0
   } catch (err) {
     return 2
   }
@@ -75,7 +75,7 @@ export const AddLike = async (post: Doc, userName: string, macroName: string = p
   const postDocRef = doc(db, 'posts', post.id!)
   await updateDoc(postDocRef, {
     reactions: arrayUnion(userName),
-    popularityScore: increment(72)
+    popularityScore: increment(48)
   })
   const likesCollectionRef = collection(db, 'likes')
   await addDoc(likesCollectionRef, {
@@ -89,7 +89,7 @@ export const RemoveLike = async (post: Doc, userName: string)=> {
   const postDocRef = doc(db, 'posts', post.id!)
   await updateDoc(postDocRef, {
     reactions: arrayRemove(userName),
-    popularityScore: increment(-72)
+    popularityScore: increment(-48)
   })
 }
 
@@ -97,7 +97,7 @@ export const AddComment = async (post: Doc, comment: string,  userName: string)=
   const postDocRef = doc(db, 'posts', post.id!)
   await updateDoc(postDocRef, {
     reviews: increment(1),
-    popularityScore: increment(120)
+    popularityScore: increment(72)
   })
   const commentsCollectionRef = collection(db, 'comments')
   await addDoc(commentsCollectionRef, {

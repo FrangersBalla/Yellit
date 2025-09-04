@@ -28,9 +28,10 @@ interface SidebarProps{
   macroList: Doc[]
   setOpenIndex: React.Dispatch<React.SetStateAction<string | null>>
   openIndex: string | null
+  isOnline: boolean
 }
 
-function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, setMacroname, setUser, user, setOldPage, shouldReload, setShouldReload, setIsOpen, isOpen, setMacroList, macroList, oldPage, openIndex, setOpenIndex}: SidebarProps) {
+function Sidebar({setPage, page, pageCreated, isOnline, setCreated, setLoggato, loggato, setMacroname, setUser, user, setOldPage, shouldReload, setShouldReload, setIsOpen, isOpen, setMacroList, macroList, oldPage, openIndex, setOpenIndex}: SidebarProps) {
 
   const boxRef = useRef<HTMLDivElement | null>(null)
 
@@ -109,11 +110,11 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
                 <AuthControl loggato={loggato} onLoginChange={handleLoginChange} setUser={setUser} setIsOpen={setIsOpen}/>
                 {(loggato) && (
                   <>
-                  {(page == 0 || (oldPage == 0 && page != 2)) && (<div><button onClick={handleCreateMacro} className="w-full bg-amber-200 py-2 mb-4 rounded-xl text-black hover:bg-amber-200 transition">
+                  {((page == 0 || (oldPage == 0 && page != 2)) && isOnline) && (<div><button onClick={handleCreateMacro} className="w-full bg-amber-200 py-2 mb-4 rounded-xl text-black hover:bg-amber-200 transition">
                     New channel
                   </button></div>)}
                   <div className='flex-grow overflow-y-auto mt-4 mb-4 pr-1'>
-                  <MacroList
+                  {isOnline && <MacroList
                     shouldReload={shouldReload}
                     onReloadHandled={() => setShouldReload(false)}
                     setPage={setPage}
@@ -126,7 +127,7 @@ function Sidebar({setPage, page, pageCreated, setCreated, setLoggato, loggato, s
                     openIndex={openIndex}
                     setOpenIndex={setOpenIndex}
                     setIsSideBarOpen={setIsOpen}
-                  />
+                  />}
                   </div>
                   <div className="absolute bg-black bottom-16 left-0 w-full">
                     {loggato && (<UserCard CurrentUser={user!} onLoginChange={handleLoginChange} setOldPage={setOldPage} setPage={setPage}/>)}
