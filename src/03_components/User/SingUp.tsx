@@ -45,7 +45,7 @@ export function SingUp({setSignUp}: SingUpProps) {
   }
 
   return (
-    <div className="bg-black opacity-75 rounded-xl lg:mr-60 lg:mt-20 p-4 z-50">
+    <div className="bg-black h-full rounded-xl lg:mr-60 lg:mt-20 p-4 z-50">
       <div className="text-xl font-semibold mb-6 text-white">
         <h1>Welcome,<br /></h1>
         That's your first time here!!

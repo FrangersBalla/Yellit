@@ -74,7 +74,7 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
   }, [page])
 
   return (
-    <><div className="bg-black flex flex-col h-[100hv] mb-20 opacity-75 rounded-xl lg:m-20 mb-30 p-4">
+    <><div className="flex flex-col max-h-[calc(100vh-15rem)] md:mt-20 mb-20 rounded-xl lg:m-20 mb-30 p-4">
       <div className='flex flex-row mb-6'>
         <button onClick={()=>setPage(oldPage)} className=""><img src="/icons/back.svg" alt= '' className="right-0 w-6 h-6 invert opacity-50 mr-3"/></button>
         <div className="text-2xl font-semibold text-white">{macroName}</div>
@@ -178,7 +178,7 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
       </div>
       <WeeklyUsage macroName={macroName} page={page} />
       <LikesPie  macroName={macroName} page={page} mems={new Set(macroMems.map(m => m.userName))}/>
-      <div className="w-3/5 mx-auto pb-10 mt-20 mb-4">
+      <div className="w-3/5 mx-auto pb-10 mb-4">
         <button onClick={handleLeave} className="w-full bg-amber-200 py-2 rounded-lg text-black transition">
           Leave
         </button>
@@ -225,7 +225,7 @@ export function MacroPage({setShowMacro, user, setShouldReload, setMacroname, se
 
   return (
     <div
-      className="backdrop-blur-md bg-black/65 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+      className="backdrop-blur bg-black/65 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
                  rounded-xl overflow-hidden max-h-[50vh] w-13/15 max-w-[60vh] z-20"
       onClick={(e) => e.stopPropagation()}
     >

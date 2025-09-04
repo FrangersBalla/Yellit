@@ -82,7 +82,7 @@ function RenderComponent({ page, setOldPage, oldPage, setSucc, setPage, isOnline
 
   return (
     <div
-      className={`overflow-y-auto overflow-x-hidden transition-opacity duration-[1150ms] ${!scroll ? 'overflow-y-hidden' : ''} ${(visible && isOnline) ? 'opacity-100' : 'opacity-0'}`}
+      className={`overflow-x-hidden overflow-y-auto transition-opacity duration-[1150ms] ${!scroll ? 'overflow-y-hidden' : ''} ${(visible && isOnline) ? 'opacity-100' : 'opacity-0'}`}
     >
       {(() => {
         switch (visiblePage) {
