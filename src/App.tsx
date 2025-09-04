@@ -4,6 +4,7 @@ import RenderComponent from "./03_components/RenderComponent"
 import { useEffect, useState } from "react"
 import type { Doc, User } from './02_lib/XTypes'
 import {MacroPage} from './03_components/Macro/MacroPage'
+import { auth } from "./00_config/firebase"
 
 function App() {
   const [page, setPage] = useState(0)
@@ -19,7 +20,7 @@ function App() {
   const [macroInfo, setMacroInfo] = useState<Doc[]>([])
   const [openIndex, setOpenIndex] = useState<string | null>(null)
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine)
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     setShow(false)
@@ -31,6 +32,17 @@ function App() {
     }
   }, [macroInfo])
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!auth.currentUser) {
+        setIsOpen(true);
+      }
+    }, 500)
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [])
+  
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true)
