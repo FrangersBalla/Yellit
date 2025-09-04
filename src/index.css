@@ -17,6 +17,10 @@ body {
   overflow: hidden;
 }
 
+html {
+  overflow: hidden;
+}
+
 
 button {
   cursor: pointer;

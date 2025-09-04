@@ -64,7 +64,7 @@ function MacroHome({macroName, page, setPage, setPost, visible, userName}: Macro
     return(
     <ul className="space-y-2 text-white h-[100vh] md:mt-16">
         {visible && (macroPosts.map((post) => (
-        <li key={post.title} className="last:pb-20">
+        <li key={post.title} className="last:pb-24 last:mb-32">
             <div className="h-auto m-auto bg-black flex flex-col justify-between select-text
                 opacity-75 shadow-md rounded-xl w-14/15 mb-10 lg:m-20 lg:w-11/15 p-6">
                 <div>
