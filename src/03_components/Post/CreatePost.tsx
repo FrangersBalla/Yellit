@@ -40,7 +40,7 @@ function CreatePost({ setSucc, setPage, macroName, name }: (NewMacroProps)){
             e.preventDefault()
             handleCreatePost()
         }}
-        className="bg-black opacity-100 shadow-md rounded px-8 pt-6 pb-8 w-full">
+        className="bg-black opacity-100 rounded-xl px-8 pt-6 pb-8 w-full">
         <div className="relative flex items-center justify-center mb-6 h-10">
             <button onClick={handleClose} className="absolute left-0 cursor-pointer">
                 <img src="/icons/close.svg" alt="" className="w-6 h-6 invert" />
