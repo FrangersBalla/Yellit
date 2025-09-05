@@ -37,7 +37,7 @@ function App() {
       if (!auth.currentUser) {
         setIsOpen(true);
       }
-    }, 800)
+    }, 1000)
     return () => {
       clearTimeout(timeout)
     }

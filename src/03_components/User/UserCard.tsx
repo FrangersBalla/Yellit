@@ -14,6 +14,7 @@ export default function UserCard({CurrentUser, onLoginChange, setPage, setOldPag
     setOldPage(0)
     onLoginChange(false)
     await LogOut()
+    window.location.reload()
   }
   return (
     <div className="bg-black p-4 z-50 rounded-xl flex items-center relative">

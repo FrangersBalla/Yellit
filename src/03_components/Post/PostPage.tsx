@@ -20,6 +20,7 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
     const [submit, setSubmit] = useState(true)
     const [isProcessing, setIsProcessing] = useState(false)
     const [translation, setTranslation] = useState('')
+    const [translatedTitle, setTranslatedTitle] = useState('')
     const [loading, setLoading] = useState(false)
     const [translated, setTranslated] = useState(false)
 
@@ -28,7 +29,9 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
             if (!post.content.trim()) return
             setLoading(true)
             const result = await LingvaTranslateWithDetect(post.content)
+            const title = await LingvaTranslateWithDetect(post.title)
             setTranslation(result)
+            setTranslatedTitle(title)
             setLoading(false)
             setTranslated(true)
         } else setTranslated(false)
@@ -81,7 +84,7 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
                         <div className="text-amber-100/75 py-1 rounded-2xl">{post.name}:</div>
                     </div>
                     <h5 className="text-sm text-amber-200 font-thin">{post.createdAt.toDate().toLocaleString()}</h5>
-                    <h1 className="text-3xl mt-4">{post.title}</h1>
+                    <h1 className="text-3xl mt-4">{translated ? translatedTitle : post.title}</h1>
                 </div>
                 <div><p className='mb-5 p-3 text-left hyphens-auto break-words whitespace-pre-wrap text-wrap'>{translated ? translation : post.content}</p></div>
                 <div className='flex gap-2 flex-row font-thin text-sm mb-10 '>
@@ -101,7 +104,7 @@ function PostPage({post, setPage, oldPage, userName, page}:PostPageProps) {
 
                 <div className="mt-10 pt-5 space-y-4 border-t border-white/25">
                     <h2 className="text-lg font-semibold text-white">Comments</h2>
-                    <div className="space-y-3 max-h-64 overflow-y-auto pl-2 mb-20">
+                    <div className="space-y-3 max-h-64 overflow-y-auto mb-20">
                         {commentsList.sort((a, b) => b.createdAt!.toDate()! - a.createdAt!.toDate()!).map((comm, i) => (
                             <div key={i} className="bg-zinc-800 p-3 rounded-lg">
                                 <div className="flex justify-between items-center mb-1">

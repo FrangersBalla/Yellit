@@ -166,7 +166,7 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
                   {((m.role == 'Member' || (p == 'Owner' && m.role != 'Owner') && m.userName != user!.nickName) && <button className="px-2 text-sm text-amber-200 hover:bg-zinc-900 rounded-lg"
                       onClick={()=>handleRmvClick(m.id!, m.role)}
                     >
-                      {m.userName} {m.id? m.id:''}</button>)}
+                      {m.userName}</button>)}
                 </div>))
                 ) : (
                 <div className="text-xs text-gray-200/50">Looks like you can't remove anyone right now</div>
