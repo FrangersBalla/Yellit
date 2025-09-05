@@ -14,7 +14,7 @@ import {
 import type { Doc } from '../02_lib/XTypes'
 
 
-export const CreateNewMacro = async (macroName: string, count: number, uID: string, nickName: string, description: string, topic: string): Promise<number> => {
+export const CreateNewMacro = async (macroName: string, count: number, uID: string, nickName: string, description: string, topic: string, country: string): Promise<number> => {
   const macroCollectionRef = collection(db, 'macros')
   
   try {
@@ -27,7 +27,7 @@ export const CreateNewMacro = async (macroName: string, count: number, uID: stri
       description,
       topics: arrayUnion(topic)
     })
-    await AddMembership (macroName, uID, 'Owner', nickName)
+    await AddMembership (macroName, uID, 'Owner', nickName, country)
     return 0; // successo
   } catch (err) {
     if (err instanceof CreateNewMacroError) return 1
@@ -35,7 +35,7 @@ export const CreateNewMacro = async (macroName: string, count: number, uID: stri
   }
 }
 
-export const AddMembership = async (macroName: string, uID: string, role: string, nickName: string, macroList:Doc[] = [], MembersNum: number = 0)=>{
+export const AddMembership = async (macroName: string, uID: string, role: string, nickName: string, country: string, macroList:Doc[] = [], MembersNum: number = 0,)=>{
   const membershipsCollectionRef = collection(db, 'memberships')
   const AlreadyJoined = macroList.find((e)=>e.macroName === macroName)
   if (!AlreadyJoined) {
@@ -44,7 +44,8 @@ export const AddMembership = async (macroName: string, uID: string, role: string
       role,
       uID,
       userName: nickName,
-      joinedAt: serverTimestamp()
+      joinedAt: serverTimestamp(),
+      country
     })
     await IncreaseMemsNum(macroName, MembersNum)
   }

@@ -37,7 +37,6 @@ export default function WeeklyUsage ({ macroName, page}: WeeklyChartProps){
     const fetchData = async () => {
       try {
         const [posts, likes, comments] = await getWeeklyUsage(macroName)
-        console.log([posts, likes, comments])
         const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         const formatted = weekdays.map((day, i) => ({
           date: day,

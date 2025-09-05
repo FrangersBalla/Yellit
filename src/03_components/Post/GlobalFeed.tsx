@@ -92,7 +92,7 @@ function Home({ page, setPage, setPost, setShowMacro, setMacroInfo, userName}: H
 
 
   return(
-    <ul className="space-y-2 text-white h-[100vh] md:mt-16" ref={scrollRef}>
+    <ul className="space-y-2 text-white h-[100vh] overflow-y-scroll md:mt-16" ref={scrollRef}>
       {feed.map((post) => (
         <li key={post.id} className="last:pb-32">
           <div className="h-auto m-auto overflow-x-hidden bg-black flex flex-col justify-between select-text 

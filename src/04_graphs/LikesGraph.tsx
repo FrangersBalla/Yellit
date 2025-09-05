@@ -6,7 +6,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
-import { getLikesSubscriptionStatus } from '../01_api/Xpost' // da creare
+import { getLikesSubscriptionStatus } from '../01_api/Xpost'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { ShowMembers, GetMacroInfo, AddRole, RemoveAccount } from "../../01_api/Xmacro"
 import WeeklyUsage from "../../04_graphs/UsageGraph"
 import LikesPie from "../../04_graphs/LikesGraph"
+import ContinentChart from "../../04_graphs/ContinentsGraph"
 
 
 interface MacroSettsProps {
@@ -178,6 +179,7 @@ export function MacroSettings ({macroName, page, setPage, user, setShouldReload,
       </div>
       <WeeklyUsage macroName={macroName} page={page} />
       <LikesPie  macroName={macroName} page={page} mems={new Set(macroMems.map(m => m.userName))}/>
+      <ContinentChart page={page} userDistr={macroMems.map((m)=>m.country)}/>
       <div className="w-3/5 mx-auto pb-10 mb-4">
         <button onClick={handleLeave} className="w-full bg-amber-200 py-2 rounded-lg text-black transition">
           Leave
@@ -215,7 +217,7 @@ interface MacroPageProps {
 export function MacroPage({setShowMacro, user, setShouldReload, setMacroname, setPage, macroInfo, macroList, setOpenIndex, setOldPage}:MacroPageProps) {
   const joinMacro = async () => {
     setShowMacro(false)
-    await AddMembership(macroInfo[0].macroName, user!.uID, 'Member', user!.nickName, macroList, macroInfo[0].MembersNum)
+    await AddMembership(macroInfo[0].macroName, user!.uID, 'Member', user!.nickName, user!.country,  macroList, macroInfo[0].MembersNum)
     setOpenIndex(macroInfo[0].macroName)
     setMacroname(macroInfo[0].macroName)
     setPage(2)

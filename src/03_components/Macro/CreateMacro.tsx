@@ -56,7 +56,8 @@ function NewMacro({ setSucc, setPage, user, setMacroname, setOpenIndex }: NewMac
         auth.currentUser.uid,
         user!.nickName,
         description,
-        selectedTopics.join(', ')
+        selectedTopics.join(', '),
+        user!.country
       )
     }
     setXErr(errCode)
