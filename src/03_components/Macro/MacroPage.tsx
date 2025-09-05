@@ -217,7 +217,7 @@ interface MacroPageProps {
 export function MacroPage({setShowMacro, user, setShouldReload, setMacroname, setPage, macroInfo, macroList, setOpenIndex, setOldPage}:MacroPageProps) {
   const joinMacro = async () => {
     setShowMacro(false)
-    await AddMembership(macroInfo[0].macroName, user!.uID, 'Member', user!.nickName, user!.country,  macroList, macroInfo[0].MembersNum)
+    await AddMembership(macroInfo[0].macroName, user!.uID, 'Member', user!.nickName, user!.country!,  macroList, macroInfo[0].MembersNum)
     setOpenIndex(macroInfo[0].macroName)
     setMacroname(macroInfo[0].macroName)
     setPage(2)

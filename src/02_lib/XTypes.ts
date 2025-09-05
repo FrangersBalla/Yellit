@@ -12,5 +12,5 @@ export interface User {
   isNew: boolean
   avatarUrl?: string
   uID: string
-  country: string
+  country?: string
 }
