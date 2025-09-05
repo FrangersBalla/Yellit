@@ -37,12 +37,12 @@ function App() {
       if (!auth.currentUser) {
         setIsOpen(true);
       }
-    }, 500)
+    }, 800)
     return () => {
       clearTimeout(timeout)
     }
   }, [])
-  
+
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true)
