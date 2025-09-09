@@ -77,11 +77,12 @@ export default defineConfig({
         ]
       },
       workbox: {
+        navigateFallback: 'offline.html',
         globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,svg,gif,webp}'],
         runtimeCaching: [
           {
             urlPattern: /.*\.(png|jpg|jpeg|svg|gif|webp)$/,
-            handler: 'CacheFirst',
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'images-cache',
               expiration: {
