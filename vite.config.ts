@@ -82,7 +82,7 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: /.*\.(png|jpg|jpeg|svg|gif|webp)$/,
-            handler: 'NetworkFirst',
+            handler: 'CacheFirst',
             options: {
               cacheName: 'images-cache',
               expiration: {
@@ -93,6 +93,14 @@ export default defineConfig({
                 statuses: [0, 200],
               },
             },
+          },
+          {
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pages-cache',
+              networkTimeoutSeconds: 3,
+            }
           }
         ],
       },
