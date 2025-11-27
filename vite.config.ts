@@ -77,7 +77,6 @@ export default defineConfig({
         ]
       },
       workbox: {
-        navigateFallback: 'offline.html',
         globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,svg,gif,webp}'],
         runtimeCaching: [
           {
@@ -94,14 +93,6 @@ export default defineConfig({
               },
             },
           },
-          {
-            urlPattern: ({ request }) => request.mode === 'navigate',
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'pages-cache',
-              networkTimeoutSeconds: 3,
-            }
-          }
         ],
       },
       includeAssets: [
