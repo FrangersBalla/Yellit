@@ -2,8 +2,7 @@
 
 function MainLayout() {
   return (
-    //header
-    //sidebar
+    <div></div>
   )
 }
 
