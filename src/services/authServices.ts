@@ -106,7 +106,7 @@ export const SingUpOndb = async (userName: string, email: string, language: stri
     await updateDoc(userDocRef, {
       userName,
       language,
-      isNew: false,
+      email
     })
   } catch (err) {
     console.error('SingUpOndb error', err)
