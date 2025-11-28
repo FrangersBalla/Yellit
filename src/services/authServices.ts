@@ -1,4 +1,4 @@
-import { db, auth } from '../firebase'
+import { db, auth } from '../config/firebase'
 import { signInWithPopup, signOut, getAuth } from 'firebase/auth'
 import type { User } from '../types/authType'
 import { GoogleAuthProvider } from 'firebase/auth/web-extension'
@@ -88,10 +88,7 @@ export const UserExist = async (nickName: string): Promise<string> => {
   }
 }
 
-export const SingUpOndb = async (
-  userName: string,
-  language: string
-): Promise<void> => {
+export const SingUpOndb = async (userName: string, email: string, language: string): Promise<void> => {
   try {
     const authData = getAuth()
     const uid = authData.currentUser?.uid

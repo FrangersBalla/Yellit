@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth } from '../config/firebase'
 import type { AuthContextType, User } from '../types/authType'
 import { googleLogIn, SearchUser } from '../services/authServices'
 
@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return null
     }
   }
-
 
   const logout = async () => {
     setLoading(true)
