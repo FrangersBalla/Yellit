@@ -1,20 +1,26 @@
 import { initializeApp } from "firebase/app"
-import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { getFirestore} from 'firebase/firestore'
+import { getMessaging } from 'firebase/messaging'
+import { getFunctions } from 'firebase/functions'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDNQt6WeJH58q_DtGUFFgFtNFWW7h174G4",
-  authDomain: "webappsocial-50f9e.firebaseapp.com",
-  projectId: "webappsocial-50f9e",
-  storageBucket: "webappsocial-50f9e.firebasestorage.app",
-  messagingSenderId: "265051454057",
-  appId: "1:265051454057:web:68e594d026a10d8c8400f8",
-  measurementId: "G-RBS7WEXZFG"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 }
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
+setPersistence(auth, browserLocalPersistence)
 export const googleAuth = new GoogleAuthProvider()
 googleAuth.setCustomParameters({ prompt: 'select_account' })
 export const db = getFirestore(app)
+
+
+export const messaging = getMessaging(app)
+export const functions = getFunctions(app)

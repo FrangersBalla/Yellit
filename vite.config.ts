@@ -9,6 +9,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      strategies: 'generateSW',
       manifest: {
         name: 'Yellit',
         short_name: 'Yellit',

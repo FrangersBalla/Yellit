@@ -1,114 +1,163 @@
-import { db, auth } from '../config/firebase'
-import { signInWithPopup, signOut, getAuth } from 'firebase/auth'
-import type { User } from '../types/authType'
-import { GoogleAuthProvider } from 'firebase/auth/web-extension'
+import { db, auth, googleAuth } from '../config/firebase'
+import { signInWithPopup, signOut } from 'firebase/auth'
+import type { User } from '../types/Type'
 import {
   getDocs,
   collection,
-  updateDoc,
-  doc,
   query,
   where,
+  updateDoc,
+  doc,
+  setDoc,
 } from 'firebase/firestore'
 
-export const googleLogIn = async (emailInput: string): Promise<User | null> => {
-  try {
-    const provider = new GoogleAuthProvider()
-    provider.setCustomParameters({ prompt: 'select_account' })
 
-    const result = await signInWithPopup(auth, provider)
-    const googleEmail = result.user.email
+export const GoogleLogIn = async (email: string): Promise<User> => {
 
-    if (!googleEmail || googleEmail != emailInput) {
-      await auth.signOut()
-      throw new Error('Account selezionato diverso dalla mail inserita')
-    }
+  const res = await signInWithPopup(auth, googleAuth)
+  const googleEmail = res.user.email ?? ''
 
-    const usersRef = collection(db, 'users')
-    const q = query(usersRef, where('email', '==', googleEmail))
-    const snapshot = await getDocs(q)
+  if (googleEmail != email) {
+    await auth.signOut()
+    throw new Error('email selezionata diversa da quella inserita')
+  }
 
-    if (snapshot.empty) {
-      console.warn('Utente non trovato in Firestore')
-      return null
-    }
+  const usersRef = collection(db, 'users')
+  const q = query(usersRef, where("email", "==", email))
+  const userSnap = await getDocs(q)
 
-    const userData = snapshot.docs[0].data()
+  if (userSnap.empty) {
+    await auth.signOut()
+    throw new Error('email selezionata diversa da quella inserita')
+  } else {
+    const data = userSnap.docs[0].data()
     return {
-      email: userData.email,
-      userName: userData.nickName,
-      language: userData.language ?? '',
-      provider: 'Google'
+      uid: res.user.uid,
+      email: data.email,
+      userName: data.userName,
+      language: data.language ?? '',
+      provider: data.provider ?? '',
+      notify: data.notify
     }
-  } catch (err) {
-    console.error('Errore durante il login con Google:', err)
-    return null
   }
 }
+
 
 
 export const LogOut = async (): Promise<void> => {
   try {
     await signOut(auth)
-  } catch (err) {
-    console.error('LogOut error', err)
+  } catch (e) {
+    console.log(e)
   }
 }
 
-export const SearchUser = async (userName: string): Promise<User | null> => {
+export const SearchUser = async (email: string): Promise<User | null> => {
   try {
-    const ref = collection(db, 'users')
-    const snapshot = await getDocs(query(ref, where('userName', '==', userName)))
+    const usersRef = collection(db, 'users')
+    const q = query(usersRef, where('email', '==', email))
+    const userSnap = await getDocs(q)
 
-    if (snapshot.empty) return null
-
-    const data = snapshot.docs[0].data()
+    if (userSnap.empty) return null
+    const data = userSnap.docs[0].data()
 
     return {
-      email: data.email,
-      userName: data.nickName,
-      language: '',
-      provider: ''
+      uid: data.uid ?? userSnap.docs[0].id,
+      email: data.email ?? email,
+      userName: data.userName,
+      language: data.language ?? '',
+      provider: data.provider ?? '',
+      notify: data.notify
     }
-  } catch (err) {
-    console.error('SearchUser error', err)
+  } catch (e) {
     return null
   }
 }
 
-export const UserExist = async (nickName: string): Promise<string> => {
+export const UserExist = async (userName: string): Promise<boolean> => {
   try {
-    const snapshot = await getDocs(
-      query(collection(db, 'users'), where('nickName', '==', nickName))
-    )
-    return !snapshot.empty? snapshot.docs[0].data().provider : ''
+    const usersRef = collection(db, 'users')
+    const q = query(usersRef, where('userName', '==', userName))
+    const userSnap = await getDocs(q)
+    return !userSnap.empty
+  } catch (e) {
+    return false
+  }
+}
+
+export const EmailExist = async (email: string): Promise<string> => {
+  try {
+    const usersRef = collection(db, 'users')
+    const q = query(usersRef, where('email', '==', email))
+    const userSnap = await getDocs(q)
+    return !userSnap.empty? userSnap.docs[0].data().provider : '' // se esiste restituisco il provider (es. Google)
+
   } catch (err) {
-    console.error('UserExist error', err)
     return ''
   }
 }
 
-export const SingUpOndb = async (userName: string, email: string, language: string): Promise<void> => {
+export const GoogleSignUp = async (email: string, userName: string, language: string): Promise<User> => {
+  const res = await signInWithPopup(auth, googleAuth)
+  const googleEmail = res.user.email ?? ''
+
+  if (googleEmail != email) {
+    await auth.signOut()
+    throw new Error('email selezionata diversa da quella inserita')
+  }
+
+  const usersRef = collection(db, 'users')
+  const q = query(usersRef, where("email", "==", email))
+  const userSnap = await getDocs(q)
+
+  if (!userSnap.empty) {
+    await auth.signOut()
+    throw new Error('email già registrata')
+  }
+
   try {
-    const authData = getAuth()
-    const uid = authData.currentUser?.uid
-    if (!uid) return
-
-    const snapshot = await getDocs(
-      query(collection(db, 'users'), where('uid', '==', uid))
-    )
-
-    if (snapshot.empty) return
-
-    const userDocId = snapshot.docs[0].id
-    const userDocRef = doc(db, 'users', userDocId)
-
-    await updateDoc(userDocRef, {
+    await setDoc(doc(db, "users", res.user.uid), {
+      uid: res.user.uid,
       userName,
+      email,
       language,
-      email
+      provider: 'Google',
+      notify: true
     })
-  } catch (err) {
-    console.error('SingUpOndb error', err)
+
+    const followingDoc = doc(db, 'following', res.user.uid)
+    await setDoc(followingDoc, { followingUserNames: [] }) // array vuoto per i seguiti
+
+  } catch (e) {
+    throw e
+  }
+
+  return {
+    uid: res.user.uid,
+    email,
+    userName,
+    language,
+    provider: 'Google',
+    notify: true
   }
 }
+
+export const updateUserLanguage = async (uid: string, language: string): Promise<void> => {
+  try {
+    const userRef = doc(db, 'users', uid)
+    await updateDoc(userRef, { language })
+  } catch (e) {
+    throw e
+  }
+}
+
+export const updateUserNotify = async (uid: string, notify: boolean): Promise<void> => {
+  try {
+    const userRef = doc(db, 'users', uid)
+    await updateDoc(userRef, { notify })
+  } catch (e) {
+    throw e
+  }
+}
+
+
