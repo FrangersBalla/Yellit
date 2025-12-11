@@ -1,69 +1,35 @@
-# React + TypeScript + Vite
+# Yellit 🍃
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Yellit is a social media app where everyone can share posts, comment on stuff, and like things. It's like a place to yell out your thoughts!
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Login**: Safe login and sign up with Firebase.
+- **Posts and Stuff**: Make posts, see them, like and comment.
+- **Notifications**: Get updates right away for new comments or likes.
+- **Profiles**: Check out profiles, followers, and who you follow.
+- **Topics and Search**: Group posts by topics and find users or posts.
+- **Languages**: Full support for English and Italian, even translates comments with an API.
+- **Offline**: Works as a PWA for offline use.
+- **Stats**: Weekly stats with interactive line charts.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React 19, TypeScript, Vite
+- **Styling**: Tailwind CSS
+- **Backend/Database**: Firebase (Firestore, Auth, Cloud Functions)
+- **Charts**: Chart.js with React
+- **Languages**: i18next, react-i18next
+- **Other Stuff**: SweetAlert2 for popups, React Router for pages, React Modal, Franc for language check, 
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+
+
+## License
+
+This is private for school project.
